@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Linguagem Programação Java/Projetos NetBeans/TP5-AutomovelComMatricula/target/
+/Linguagem Programação Java/Projetos NetBeans/TP5-AutomovelComProprietario/target/
+/Linguagem Programação Java/Projetos NetBeans/Biblioteca/target/
