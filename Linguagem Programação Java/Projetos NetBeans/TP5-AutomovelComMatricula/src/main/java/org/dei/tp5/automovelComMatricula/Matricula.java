@@ -11,9 +11,8 @@ public class Matricula {
     private static final String MATRICULA_POR_OMISSAO = "sem matrícula";
 
     public Matricula(String matricula, Data dataRegisto) {
-        Data dataRegisto1 = new Data(dataRegisto);
         this.matricula = matricula;
-        this.dataRegisto = dataRegisto1;
+        this.dataRegisto = new Data(dataRegisto);
     }
 
     public Matricula() {
