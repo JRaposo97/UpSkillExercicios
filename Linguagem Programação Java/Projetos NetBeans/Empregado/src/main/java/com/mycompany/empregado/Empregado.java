@@ -20,6 +20,10 @@ public class Empregado  {
     private Tempo horaEntrada;
     private Tempo horaSaida;
     
+    private static final String PRIMEIRO_OMISSO = "Sem Primeiro Nome";
+    private static final String ULTIMO_OMISSO = "Sem Ultimo Nome";
+    
+    
     public Empregado(String primeiroNome, String ultimoNome, Data dataContrato, Tempo horaEntrada, Tempo horaSaida){
         this.primeiroNome = primeiroNome;
         this.ultimoNome = ultimoNome;
@@ -27,6 +31,15 @@ public class Empregado  {
         this.horaEntrada = new Tempo(horaEntrada);
         this.horaSaida = new Tempo(horaSaida);
     }
+    
+    public Empregado(){
+        this.primeiroNome = PRIMEIRO_OMISSO;
+        this.ultimoNome = ULTIMO_OMISSO;
+        this.dataContrato = new Data();
+        this.horaEntrada = new Tempo();
+        this.horaSaida = new Tempo();
+    }
+
 
     /**
      * @return the primeiroNome
@@ -96,6 +109,18 @@ public class Empregado  {
      */
     public void setHoraSaida(Tempo horaSaida) {
         this.horaSaida = horaSaida;
+    }
+    
+    public String toString(){
+        return String.format("\nEmpregado\nPrimeiro Nome: %s\nUltimo Nome: %s\nEntrada : %s\nHora Entrada: %s\nHora Saida: %s\n",primeiroNome,ultimoNome,dataContrato,horaEntrada,horaSaida);
+    }
+    
+    public int duracaoContrato(){
+        return Data.dataAtual().diferenca(dataContrato);
+    }
+    
+    public int horasTrabalho(){
+        return (horaEntrada.diferencaEmSegundos(horaSaida) / 60) * 5;
     }
     
     

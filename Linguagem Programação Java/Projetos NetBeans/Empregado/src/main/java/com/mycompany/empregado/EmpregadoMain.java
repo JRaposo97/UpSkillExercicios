@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.empregado;
+
+import com.mycompany.utilitarios.Data;
+import com.mycompany.utilitarios.Tempo;
+
+/**
+ *
+ * @author joaor
+ */
+public class EmpregadoMain {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Data d1 = new Data(2015, 12, 15);
+        System.out.println("######## Data Criada ############");
+        System.out.println(d1);
+
+        Tempo manha = new Tempo(9, 0, 0);
+        Tempo tarde = new Tempo(13, 0, 0);
+
+        System.out.println("######## Listagem de Tempos Criados ############");
+        System.out.println(manha);
+        System.out.println(tarde);
+
+        Empregado emp1 = new Empregado("Joaquim", "Calisto", d1, manha, tarde);
+
+        Empregado emp2 = new Empregado("João", "Raposo", d1, manha, tarde);
+
+        d1.setData(2020, 10, 10);
+        manha.setTempo(10, 30, 0);
+        tarde.setHoras(18);
+
+        System.out.println("######## Listagem de Tempos / Data modificados e Empregados ############");
+        System.out.println(d1);
+        System.out.println(manha);
+        System.out.println(tarde);
+        System.out.println(emp1);
+        System.out.println(emp2);
+    }
+
+}
