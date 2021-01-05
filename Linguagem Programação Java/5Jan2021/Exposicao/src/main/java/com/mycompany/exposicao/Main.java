@@ -31,7 +31,7 @@ public class Main {
         quadros.add(q3);
         quadros.add(q4);
         System.out.println("################ Listar Quadros ###################");
-        listarQuadros(quadros);
+        listar(quadros);
         
         Exposicao expo1 = new Exposicao("Expo1", 2010, quadros);
         Exposicao expo2 = new Exposicao("Expo2", 2014, quadros);
@@ -43,19 +43,19 @@ public class Main {
         expos.add(expo3);
         
         System.out.println("################ Listar Exposiçoes ###################");
-        listarExpos(expos);
+        listar(expos);
         
         
         System.out.println("################ Listar Exposicoes pos alterar quadro 2 ###################");
         q2.setAnoCriacao(2019);
-        listarExpos(expos);
+        listar(expos);
         
        
         
         System.out.println("################ Listar Exposicoes ordem decrescente de Ano Realizacao ###################");
         Collections.sort(expos);
         Collections.reverse(expos);
-        listarExpos(expos);
+        listar(expos);
         
         
         System.out.println("################ Exposicao 1 Verificar Remove de Quadro 4###################");
@@ -64,19 +64,13 @@ public class Main {
 
     }
 
-    private static void listarQuadros(List<Quadro> quadros) {
-        for (Quadro quad : quadros) {
-            if (quad != null) {
-                System.out.println(quad);
+    private static void listar(List lista) {
+        for (Object obj : lista) {
+            if (obj != null) {
+                System.out.println(obj);
             }
         }
     }
     
-    private static void listarExpos(List<Exposicao> expos) {
-        for (Exposicao expo : expos) {
-            if (expo != null) {
-                System.out.println(expo);
-            }
-        }
-    }
+   
 }
