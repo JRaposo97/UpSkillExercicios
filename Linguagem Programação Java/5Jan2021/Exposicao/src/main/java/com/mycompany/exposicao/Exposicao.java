@@ -27,6 +27,12 @@ public class Exposicao implements Comparable<Exposicao> {
         this.anoRealizacao = anoRealizacao;
         this.quadrosExpostos = quadros;
     }
+    
+    public Exposicao(String designacao, int anoRealizacao){
+        this.designacao = designacao;
+        this.anoRealizacao = anoRealizacao;
+        this.quadrosExpostos = QUADROS_OMISSO;
+    }
 
     public Exposicao() {
         this.designacao = DESIGNACAO_OMISSA;
@@ -79,18 +85,19 @@ public class Exposicao implements Comparable<Exposicao> {
     public String toString() {
         return String.format("\nExposiçao : %s"
                 + "\nAno Realizaçao : %d"
-                + "\n%s", designacao, anoRealizacao,this.listPaintingsOrderedByAuthor());
+                + "\n--- Quadros Expostos ---"
+                + "\n%s", designacao, anoRealizacao, this.listPaintingsOrderedByAuthor());
     }
-    
-    private String listPaintingsOrderedByAuthor(){
+
+    private StringBuilder listPaintingsOrderedByAuthor() {
         Collections.sort(quadrosExpostos);
-        String b = String.format("");
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < quadrosExpostos.size(); i++) {
-            b += String.format("%s", quadrosExpostos.get(i));
+            str.append(quadrosExpostos.get(i));
         }
         
-        return b;
-        
+        return str ;
+
     }
 
     @Override
