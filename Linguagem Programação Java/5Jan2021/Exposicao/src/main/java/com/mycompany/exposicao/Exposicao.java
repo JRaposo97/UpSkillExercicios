@@ -120,14 +120,7 @@ public class Exposicao implements Comparable<Exposicao> {
     }
 
     public boolean addQuadro(Quadro quadro) {
-        boolean flag = true;
-        for (int i = 0; i < quadrosExpostos.size(); i++) {
-            if (quadrosExpostos.get(i) == quadro) {
-                flag = false;
-            }
-        }
-        this.quadrosExpostos.add(quadro);
-        return flag;
+        return quadrosExpostos.contains(quadro) ? false : quadrosExpostos.add(quadro);
     }
 
     public boolean removeQuadro(Quadro quadro) {
