@@ -7,6 +7,7 @@ package com.mycompany.empregado;
 
 import com.mycompany.utilitarios.Data;
 import com.mycompany.utilitarios.Tempo;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,6 +44,27 @@ public class EmpregadoMain {
         System.out.println(tarde);
         System.out.println(emp1);
         System.out.println(emp2);
+        
+        emp2.setDataContrato(d1);
+        emp2.setHoraEntrada(new Tempo(11,0,0));
+        emp2.setHoraSaida(new Tempo(20,0,0));
+        
+        ArrayList<Empregado> emp = new ArrayList<Empregado>();
+        emp.add(emp1);
+        emp.add(emp2);
+        
+        
+        System.out.println("######## Listagem de Empregados ############");
+        for (int i = 0; i < emp.size(); i++) {
+                System.out.println(emp.get(i));
+        }
+        
+        System.out.println("######## Listagem de Nome + Horas Trabalho Semanal + Antiguidade ############");
+        for (int i = 0; i < emp.size(); i++) {
+                System.out.format("\nPrimeiro e Ultimo Nome: %s %s"
+                        + "\nHoras de Trabalho Semanal: %d Horas"
+                        + "\nAntiguidade : %d Anos",emp.get(i).getPrimeiroNome(),emp.get(i).getUltimoNome(),emp.get(i).horasTrabalho(),emp.get(i).duracaoContrato());
+        }
     }
 
 }

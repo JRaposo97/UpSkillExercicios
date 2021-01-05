@@ -112,15 +112,20 @@ public class Empregado  {
     }
     
     public String toString(){
-        return String.format("\nEmpregado\nPrimeiro Nome: %s\nUltimo Nome: %s\nEntrada : %s\nHora Entrada: %s\nHora Saida: %s\n",primeiroNome,ultimoNome,dataContrato,horaEntrada,horaSaida);
+        return String.format("\nEmpregado"
+                + "\nPrimeiro Nome: %s"
+                + "\nUltimo Nome: %s"
+                + "\nData Contrato : %s"
+                + "\nHora Entrada: %s"
+                + "\nHora Saida: %s\n",primeiroNome,ultimoNome,dataContrato,horaEntrada,horaSaida);
     }
     
     public int duracaoContrato(){
-        return Data.dataAtual().diferenca(dataContrato);
+        return (Data.dataAtual().diferenca(dataContrato))/365;
     }
     
     public int horasTrabalho(){
-        return (horaEntrada.diferencaEmSegundos(horaSaida) / 60) * 5;
+        return ((horaEntrada.diferencaEmSegundos(horaSaida) / 60)/60) * 5;
     }
     
     
