@@ -19,7 +19,7 @@ public class EmpregadoMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Data d1 = new Data(2015, 12, 15);
+        Data d1 = Data.dataAtual();
         System.out.println("######## Data Criada ############");
         System.out.println(d1);
 
