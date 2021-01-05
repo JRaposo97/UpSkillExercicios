@@ -25,7 +25,7 @@ public class Exposicao implements Comparable<Exposicao> {
     public Exposicao(String designacao, int anoRealizacao, ArrayList<Quadro> quadros) {
         this.designacao = designacao;
         this.anoRealizacao = anoRealizacao;
-        this.quadrosExpostos = quadros;
+        this.quadrosExpostos = new ArrayList<>(quadros);
     }
     
     public Exposicao(String designacao, int anoRealizacao){
@@ -38,6 +38,12 @@ public class Exposicao implements Comparable<Exposicao> {
         this.designacao = DESIGNACAO_OMISSA;
         this.anoRealizacao = ANOREALIZACAO_OMISSO;
         this.quadrosExpostos = QUADROS_OMISSO;
+    }
+    
+    public Exposicao(Exposicao o){
+        this.designacao = o.designacao;
+        this.anoRealizacao = o.anoRealizacao;
+        this.quadrosExpostos = new ArrayList<>(o.quadrosExpostos);
     }
 
     /**
@@ -72,7 +78,7 @@ public class Exposicao implements Comparable<Exposicao> {
      * @return the quadrosExpostos
      */
     public ArrayList<Quadro> getQuadrosExpostos() {
-        return quadrosExpostos;
+        return new ArrayList<>(quadrosExpostos);
     }
 
     /**
