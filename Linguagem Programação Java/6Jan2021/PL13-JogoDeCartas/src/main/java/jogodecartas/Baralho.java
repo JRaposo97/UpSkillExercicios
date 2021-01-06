@@ -52,8 +52,8 @@ public class Baralho {
     }
 
     /**
-     * Constrói uma instância de {@code Baralho} com as mesmas caraterísticas
-     * do baralho recebido por parâmetro.
+     * Constrói uma instância de {@code Baralho} com as mesmas caraterísticas do
+     * baralho recebido por parâmetro.
      *
      * @param outroBaralho o baralho com as características a copiar.
      */
@@ -78,7 +78,7 @@ public class Baralho {
         }
         return s.toString();
     }
-    
+
     /**
      * Permuta as cartas do baralho de um modo aleatório.
      */
@@ -92,7 +92,7 @@ public class Baralho {
     public void partir() {
 
         // Reserva a primeira metade das cartas do baralho
-        List<Carta> mbar = new ArrayList<>(baralho.subList(0, baralho.size()/2));
+        List<Carta> mbar = new ArrayList<>(baralho.subList(0, baralho.size() / 2));
 
         // Remove a primeira metade das cartas do baralho
         baralho.removeAll(mbar);
@@ -136,23 +136,21 @@ public class Baralho {
 
         return mbar;
     }
-    
+
     /**
      * Devolve um baralho do tipo recebido por parâmetro.
-     * 
+     *
      * @param tipoDeBaralho o tipo de baralho.
      */
     private List<Carta> criarBaralho(Tipo tipoDeBaralho) {
         List<Carta> baralho = (tipoDeBaralho == Tipo.BAR_40 ? new ArrayList<>(40)
-                                                            : new ArrayList<>(52));
+                : new ArrayList<>(52));
         for (Carta.Naipe n : Carta.Naipe.values()) {
             for (Carta.Tipo t : Carta.Tipo.values()) {
-                if (tipoDeBaralho == Tipo.BAR_40
-                        && t.compareTo(Carta.Tipo.SENA) > 0
-                        && t.compareTo(Carta.Tipo.DAMA) < 0) {
-                    continue;
+                if ((tipoDeBaralho == Tipo.BAR_52) ||
+                        (tipoDeBaralho == Tipo.BAR_40 && (t.ordinal() < 5 || t.ordinal() > 7))) {
+                    baralho.add(new Carta(t, n));
                 }
-                baralho.add(new Carta(t, n));
             }
         }
         return baralho;

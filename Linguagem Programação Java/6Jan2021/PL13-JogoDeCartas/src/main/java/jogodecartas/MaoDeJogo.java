@@ -11,15 +11,15 @@ import java.util.List;
  */
 public class MaoDeJogo {
 
-     /**
+    /**
      * A mão de jogo.
      */
     private List<Carta> maoDeJogo;
-    
+
     /**
      * Constrói uma instância de {@code MaoDeJogo} recebendo um conjunto de
      * cartas.
-     * 
+     *
      * @param mao o conjunto de cartas.
      */
     public MaoDeJogo(List<Carta> mao) {
@@ -32,16 +32,16 @@ public class MaoDeJogo {
     public MaoDeJogo() {
         maoDeJogo = new ArrayList<>();
     }
-    
+
     /**
      * Constrói uma instância de {@code MaoDeJogo} com as mesmas caraterísticas
      * da mão de jogo recebida por parâmetro.
-     * 
+     *
      * @param outraMaoDeJogo a mão de jogo com as caraterísticas a copiar.
      */
     public MaoDeJogo(MaoDeJogo outraMaoDeJogo) {
         maoDeJogo = new ArrayList<>();
-        for(Carta c : outraMaoDeJogo.maoDeJogo) {
+        for (Carta c : outraMaoDeJogo.maoDeJogo) {
             maoDeJogo.add(new Carta(c));
         }
     }
@@ -54,10 +54,10 @@ public class MaoDeJogo {
     public List<Carta> getMaoDeJogo() {
         return new ArrayList<Carta>(maoDeJogo);
     }
-    
+
     /**
      * Devolve a descrição textual da mão de jogo (uma carta por linha).
-     * 
+     *
      * @return caraterísticas das cartas da mão de jogo.
      */
     @Override
@@ -73,30 +73,33 @@ public class MaoDeJogo {
     /**
      * Devolve um conjunto com os vários tipos de carta (duque, terno, etc.)
      * existentes na mão de jogo.
-     * 
+     *
      * @return {@code List} com os tipos de carta existentes na mão de jogo.
      */
     public List<Carta.Tipo> tiposDeCarta() {
-        ArrayList<Carta.Tipo> l = new ArrayList<>();
-        
-        for (Carta c : maoDeJogo){
-           l.add(c.getTipo());
+        List<Carta.Tipo> l = new ArrayList<>();
+
+        for (Carta c : maoDeJogo) {
+            if (!l.contains(c.getTipo())) {
+                l.add(c.getTipo());
+            }
         }
-        
+
         return l;
     }
 
     /**
      * Determina quantas cartas de um dado tipo existem na mão de jogo.
-     * 
+     *
      * @param tipo o tipo de carta.
      * @return quantidade de cartas do tipo, que existem na mão de jogo.
      */
     public int contarCartasDoTipo(Carta.Tipo tipo) {
-        int counter = 0; 
-        for (Carta c : maoDeJogo){
-            if(c.getTipo() == tipo)
-            counter++;
+        int counter = 0;
+        for (Carta c : maoDeJogo) {
+            if (c.getTipo() == tipo) {
+                counter++;
+            }
         }
         return counter;
     }

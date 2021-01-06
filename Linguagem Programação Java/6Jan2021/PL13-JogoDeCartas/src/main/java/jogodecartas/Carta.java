@@ -7,7 +7,6 @@ package jogodecartas;
  */
 public class Carta implements Comparable<Carta> {
 
-
     /**
      * Tipos de carta.
      */
@@ -68,7 +67,7 @@ public class Carta implements Comparable<Carta> {
     }
 
     /**
-     * Constrói uma instância de {@code Carta} com o tipo por omissão e o naipe 
+     * Constrói uma instância de {@code Carta} com o tipo por omissão e o naipe
      * por omissão.
      */
     public Carta() {
@@ -141,7 +140,7 @@ public class Carta implements Comparable<Carta> {
      *
      * @param outroObjeto o objeto a comparar com a carta.
      * @return true se o objeto recebido representar outra carta equivalente à
-     *         carta. Caso contrário, retorna false.
+     * carta. Caso contrário, retorna false.
      */
     @Override
     public boolean equals(Object outroObjeto) {
@@ -154,23 +153,22 @@ public class Carta implements Comparable<Carta> {
         Carta outraCarta = (Carta) outroObjeto;
         return tipo == outraCarta.tipo && naipe == outraCarta.naipe;
     }
-    
-    
+
     @Override
     public int compareTo(Carta o) {
         int val = this.getNaipe().compareTo(o.getNaipe());
-        int val1 = this.getTipo().compareTo(o.getTipo());
 
         if (val > 0) {
             return 1;
         } else if (val < 0) {
             return -1;
         } else {
-            if(val1 > 0){
+            int val1 = this.getTipo().compareTo(o.getTipo());
+            if (val1 > 0) {
                 return 1;
-            }else if ( val1 < 0 ){
+            } else if (val1 < 0) {
                 return -1;
-            }else{
+            } else {
                 return 0;
             }
         }
