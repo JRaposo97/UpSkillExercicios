@@ -31,7 +31,6 @@ public class Main {
         } else {
             System.out.println("Contacto Ja Existe");
         }
-        lista.novoContacto(c1);
 
         if (lista.addTresContactos(c2, c3, c4)) {
             System.out.println("Contactos adicionados com Sucesso");
@@ -39,6 +38,9 @@ public class Main {
             System.out.println("Algum dos Contactos Ja Existe");
         }
 
+        
+        System.out.println("################## FINAL ####################");
+        listar(lista.getListaContactos());
     }
 
     private static void listar(List lista) {
