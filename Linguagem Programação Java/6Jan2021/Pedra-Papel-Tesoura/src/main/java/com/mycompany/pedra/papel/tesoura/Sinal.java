@@ -26,7 +26,7 @@ public enum Sinal {
     public int getValue() {
         return value;
     }
-    
+
     public static int score(int player1Choice, int player2Choice) {
         int score = player1Choice - player2Choice;
         if (score == 2) {
@@ -37,4 +37,4 @@ public enum Sinal {
         return score;
     }
 
-} 
+}
