@@ -5,6 +5,8 @@
  */
 package com.mycompany.pedra.papel.tesoura;
 
+import java.util.List;
+
 /**
  *
  * @author joaor
@@ -34,4 +36,5 @@ public enum Sinal {
         }
         return score;
     }
-}
+
+} 
