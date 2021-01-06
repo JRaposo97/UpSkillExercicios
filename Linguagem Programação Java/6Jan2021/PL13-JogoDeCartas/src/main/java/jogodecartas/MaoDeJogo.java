@@ -1,6 +1,7 @@
 package jogodecartas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -76,7 +77,13 @@ public class MaoDeJogo {
      * @return {@code List} com os tipos de carta existentes na mão de jogo.
      */
     public List<Carta.Tipo> tiposDeCarta() {
-        throw new UnsupportedOperationException("Não implementado!");
+        ArrayList<Carta.Tipo> l = new ArrayList<>();
+        
+        for (Carta c : maoDeJogo){
+           l.add(c.getTipo());
+        }
+        
+        return l;
     }
 
     /**
@@ -86,16 +93,19 @@ public class MaoDeJogo {
      * @return quantidade de cartas do tipo, que existem na mão de jogo.
      */
     public int contarCartasDoTipo(Carta.Tipo tipo) {
-        throw new UnsupportedOperationException("Não implementado!");
+        int counter = 0; 
+        for (Carta c : maoDeJogo){
+            if(c.getTipo() == tipo)
+            counter++;
+        }
+        return counter;
     }
 
     /**
      * Ordena a mão de jogo por naipe e, dentro do mesmo naipe, ordena por tipo.
      */
     public void ordenar() {
-        // A classe Carta deve implementar a interface Comparable, devendo
-        // implementar especificamente Comparable<Carta>
-        throw new UnsupportedOperationException("Não implementado!");
+        Collections.sort(maoDeJogo);
     }
 
 }

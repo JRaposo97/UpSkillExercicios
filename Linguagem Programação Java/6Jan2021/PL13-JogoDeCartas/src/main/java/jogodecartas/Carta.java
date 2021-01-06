@@ -5,7 +5,8 @@ package jogodecartas;
  *
  * @author ISEP-DEI-PPROG
  */
-public class Carta {
+public class Carta implements Comparable<Carta> {
+
 
     /**
      * Tipos de carta.
@@ -152,6 +153,27 @@ public class Carta {
         }
         Carta outraCarta = (Carta) outroObjeto;
         return tipo == outraCarta.tipo && naipe == outraCarta.naipe;
+    }
+    
+    
+    @Override
+    public int compareTo(Carta o) {
+        int val = this.getNaipe().compareTo(o.getNaipe());
+        int val1 = this.getTipo().compareTo(o.getTipo());
+
+        if (val > 0) {
+            return 1;
+        } else if (val < 0) {
+            return -1;
+        } else {
+            if(val1 > 0){
+                return 1;
+            }else if ( val1 < 0 ){
+                return -1;
+            }else{
+                return 0;
+            }
+        }
     }
 
 }
