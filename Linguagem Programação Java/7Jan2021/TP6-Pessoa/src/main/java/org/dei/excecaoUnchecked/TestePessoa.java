@@ -10,11 +10,13 @@ public class TestePessoa {
         Scanner ler = new Scanner(System.in);
 
         Pessoa p = new Pessoa();
-        System.out.print("Nome:");
+        
+        System.out.println("Nome:");
         String nome = ler.nextLine();
         p.setNome(nome);
 
-        System.out.print("Nº de ID Civil:");
+        
+        System.out.println("Nº de ID Civil:");
         int idCivil = ler.nextInt();
         ler.nextLine();
         p.setIDCivil(idCivil);

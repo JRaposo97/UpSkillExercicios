@@ -22,31 +22,21 @@ public class Teste {
 
     }
 
-    private static boolean guardarEmFicheiro(List<Pessoa> lista)  {
+    private static boolean guardarEmFicheiro(List<Pessoa> lista) {
         Formatter ficheiro;
-        ficheiro = new Formatter(new File("pessoas.txt"));
-        for (Pessoa p : lista) {
-            ficheiro.format("%s%n", p);
+        try {
+            ficheiro = new Formatter(new File("pessoas.txt"));
+            try {
+                for (Pessoa p : lista) {
+                    ficheiro.format("%s%n", p);
+                }
+            } finally {
+                ficheiro.close();
+            }
+            return true;
+        } catch (IOException e) {
+            return false;
         }
-        ficheiro.close();
-        return true;
     }
-
-//    private static boolean guardarEmFicheiro(List<Pessoa> lista) {
-//        Formatter ficheiro;
-//        try {
-//            ficheiro = new Formatter(new File("pessoas.txt"));
-//            try {
-//                for (Pessoa p : lista) {
-//                    ficheiro.format("%s%n", p);
-//                }
-//            } finally {
-//                ficheiro.close();
-//            }
-//            return true;
-//        } catch (IOException e) {
-//            return false;
-//        }
-//    }
     
 }

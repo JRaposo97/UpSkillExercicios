@@ -1,4 +1,3 @@
-
 package org.dei.excecaoUnchecked;
 
 /**
@@ -18,47 +17,47 @@ public class Pessoa implements Comparable<Pessoa> {
      * O número ID Civil do cartão do cidadão.
      */
     private int idCivil;
-    
+
     /**
      * O nome por omissão da pessoa.
      */
     private static final String NOME_POR_OMISSAO = "sem nome";
-    
+
     /**
      * O número ID Civil do cartão do cidadão por omissão.
      */
-    private static final int IDCIVIL_POR_OMISSAO = 0;    
+    private static final int IDCIVIL_POR_OMISSAO = 0;
 
     /**
-     * Constrói uma instância de Pessoa recebendo o nome e o número ID Civil
-     * do cartão do cidadão.
+     * Constrói uma instância de Pessoa recebendo o nome e o número ID Civil do
+     * cartão do cidadão.
      *
      * @param nome o nome da pessoa.
      * @param idCivil o número ID Civil do cartão do cidadão.
      */
     public Pessoa(String nome, int idCivil) {
-        this.nome = nome;
-        this.idCivil = idCivil;
+        setNome(nome);
+        setIDCivil(idCivil);
     }
 
     /**
-     * Constrói uma instância de Pessoa com o nome e o número ID Civil do 
-     * cartão do cidadão, por omissão.
-     */    
+     * Constrói uma instância de Pessoa com o nome e o número ID Civil do cartão
+     * do cidadão, por omissão.
+     */
     public Pessoa() {
-        nome = NOME_POR_OMISSAO;
-        idCivil = IDCIVIL_POR_OMISSAO;
+        setNome(NOME_POR_OMISSAO);
+        setIDCivil(IDCIVIL_POR_OMISSAO);
     }
-    
+
     /**
-     * Constrói uma instância de Pessoa com as mesmas caraterísticas da 
-     * pessoa recebida por parâmetro.
-     * 
+     * Constrói uma instância de Pessoa com as mesmas caraterísticas da pessoa
+     * recebida por parâmetro.
+     *
      * @param outraPessoa a pessoa com as características a copiar.
      */
     public Pessoa(Pessoa outraPessoa) {
-        nome = outraPessoa.nome;
-        idCivil = outraPessoa.idCivil;
+        setNome(outraPessoa.nome);
+        setIDCivil(outraPessoa.idCivil);
     }
 
     /**
@@ -84,8 +83,15 @@ public class Pessoa implements Comparable<Pessoa> {
      *
      * @param nome o novo nome da pessoa.
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws IllegalArgumentException {
+        char c;
+        for (int i = 0; i < nome.length(); i++) {
+            c = nome.charAt(i);
+            if (Character.isLetter(c) == false && Character.isSpaceChar(c) == false) {
+                throw new IllegalArgumentException();
+            }
+            this.nome = nome;
+        }
     }
 
     /**
@@ -93,7 +99,10 @@ public class Pessoa implements Comparable<Pessoa> {
      *
      * @param idCivil o novo número ID Civil do cartão do cidadão da pessoa.
      */
-    public void setIDCivil(int idCivil) {
+    public void setIDCivil(int idCivil) throws IllegalArgumentException {
+        if (idCivil < 0 || idCivil > 99999999) {
+            throw new IllegalArgumentException();
+        }
         this.idCivil = idCivil;
     }
 
@@ -104,16 +113,16 @@ public class Pessoa implements Comparable<Pessoa> {
      */
     @Override
     public String toString() {
-        return String.format("%s tem o cartão do cidadão com o número ID Civil %d.", 
-                                nome, idCivil);
+        return String.format("%s tem o cartão do cidadão com o número ID Civil %d.",
+                nome, idCivil);
     }
-    
+
     /**
      * Compara a pessoa com o objeto recebido.
-     * 
+     *
      * @param outroObjeto o objeto a comparar com a pessoa.
-     * @return true se o objeto recebido representar uma pessoa equivalente
-     *         à pessoa. Caso contrário, retorna false.
+     * @return true se o objeto recebido representar uma pessoa equivalente à
+     * pessoa. Caso contrário, retorna false.
      */
     @Override
     public boolean equals(Object outroObjeto) {
@@ -124,24 +133,22 @@ public class Pessoa implements Comparable<Pessoa> {
             return false;
         }
         Pessoa outraPessoa = (Pessoa) outroObjeto;
-        return nome.equalsIgnoreCase(outraPessoa.nome) && 
-               idCivil == outraPessoa.idCivil;
-    }    
-    
+        return nome.equalsIgnoreCase(outraPessoa.nome)
+                && idCivil == outraPessoa.idCivil;
+    }
+
     /**
-     * Compara alfabeticamente os nomes da pessoa e da outra pessoa recebida 
-     * por parâmetro.
-     * 
+     * Compara alfabeticamente os nomes da pessoa e da outra pessoa recebida por
+     * parâmetro.
+     *
      * @param outraPessoa a pessoa a ser comparada.
-     * @return o valor 0 se a outraPessoa recebida tem o mesmo nome da pessoa; 
-     *         o valor -1 se, alfabeticamente, o nome da pessoa for anterior
-     *         ao nome da outraPessoa; o valor 1 se, alfabeticamente, o 
-     *         nome da pessoa for posterior ao nome da pessoa.
+     * @return o valor 0 se a outraPessoa recebida tem o mesmo nome da pessoa; o
+     * valor -1 se, alfabeticamente, o nome da pessoa for anterior ao nome da
+     * outraPessoa; o valor 1 se, alfabeticamente, o nome da pessoa for
+     * posterior ao nome da pessoa.
      */
     @Override
     public int compareTo(Pessoa outraPessoa) {
         return nome.compareToIgnoreCase(outraPessoa.nome);
     }
 }
-
-
