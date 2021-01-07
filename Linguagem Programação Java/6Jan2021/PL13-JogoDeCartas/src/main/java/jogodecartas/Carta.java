@@ -156,21 +156,10 @@ public class Carta implements Comparable<Carta> {
 
     @Override
     public int compareTo(Carta o) {
-        int val = this.getNaipe().compareTo(o.getNaipe());
-
-        if (val > 0) {
-            return 1;
-        } else if (val < 0) {
-            return -1;
-        } else {
-            int val1 = this.getTipo().compareTo(o.getTipo());
-            if (val1 > 0) {
-                return 1;
-            } else if (val1 < 0) {
-                return -1;
-            } else {
-                return 0;
-            }
+        if(naipe != o.naipe){
+            return naipe.compareTo(o.naipe);
+        }else{
+            return tipo.compareTo(o.tipo);
         }
     }
 
