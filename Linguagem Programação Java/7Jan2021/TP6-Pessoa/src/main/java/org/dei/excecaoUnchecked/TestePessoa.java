@@ -1,7 +1,7 @@
-
 package org.dei.excecaoUnchecked;
 
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class TestePessoa {
 
@@ -9,19 +9,20 @@ public class TestePessoa {
 
         Scanner ler = new Scanner(System.in);
 
-        Pessoa p = new Pessoa();
-        
-        System.out.println("Nome:");
-        String nome = ler.nextLine();
-        p.setNome(nome);
+        try {
+            Pessoa p = new Pessoa();
 
-        
-        System.out.println("Nº de ID Civil:");
-        int idCivil = ler.nextInt();
-        ler.nextLine();
-        p.setIDCivil(idCivil);
+            System.out.println("Nome:");
+            String nome = ler.nextLine();
+            p.setNome(nome);
 
-        System.out.println("\nPessoa: " + p);
+            System.out.println("Nº de ID Civil:");
+            int idCivil = ler.nextInt();
+            ler.nextLine();
+            p.setIDCivil(idCivil);
+        } catch (ArgumentoForaDosLimitesException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
     }
 

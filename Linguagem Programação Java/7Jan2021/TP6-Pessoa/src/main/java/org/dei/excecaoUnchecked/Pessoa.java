@@ -88,7 +88,7 @@ public class Pessoa implements Comparable<Pessoa> {
         for (int i = 0; i < nome.length(); i++) {
             c = nome.charAt(i);
             if (Character.isLetter(c) == false && Character.isSpaceChar(c) == false) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("O " + nome + "tem caracteres que não são letras");
             }
             this.nome = nome;
         }
@@ -100,8 +100,14 @@ public class Pessoa implements Comparable<Pessoa> {
      * @param idCivil o novo número ID Civil do cartão do cidadão da pessoa.
      */
     public void setIDCivil(int idCivil) throws IllegalArgumentException {
-        if (idCivil < 0 || idCivil > 99999999) {
-            throw new IllegalArgumentException();
+        int count=0;
+        int nr = idCivil;
+        while(idCivil!=0){
+         idCivil = idCivil/10;
+         count++;
+      }
+        if ((idCivil < 0 || idCivil > 99999999) && count==8 ) {
+            throw new IllegalArgumentException("O numero tem de ser positivo e 8 digitos");
         }
         this.idCivil = idCivil;
     }
