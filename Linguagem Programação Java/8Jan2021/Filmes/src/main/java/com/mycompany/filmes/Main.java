@@ -19,11 +19,11 @@ public class Main {
      */
     public static void main(String[] args) {
         try {
-            Realizador r1 = new Realizador("Jordan", "Americano", new Data(1920, 1, 1));
+            Realizador r1 = new Realizador("Pablo", "Mexicano", new Data(1920, 1, 1));
             Realizador r2 = new Realizador("Mario", "Italiano", new Data(1920, 2, 21));
             Filme f1 = new Filme("Filme 1", 1900, r1, "Acao");
             Filme f2 = new Filme("Filme 2", 1900, r1, "ACAO");
-            Filme f3 = new Filme("Filme 3", 2020, r2, "ACAO");
+            Filme f3 = new Filme("Filme 3", 2020, r2, "drama");
             Filme f4 = new Filme("Filme 4", 2020, r2, "TERROR");
             ArrayList<Filme> listaFilmes = new ArrayList<Filme>();
             listaFilmes.add(f1);
