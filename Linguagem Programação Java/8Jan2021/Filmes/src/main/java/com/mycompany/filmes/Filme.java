@@ -93,12 +93,15 @@ public class Filme {
      * @param categoria the categoria to set
      */
     public void setCategoria(String categoria) throws CategoriaInvalidaException {
+        boolean flag = false;
         for (Categoria c : Categoria.values()) {
-            if (!c.name().equalsIgnoreCase(categoria)) {
-                throw new CategoriaInvalidaException("Escreva a Categoria corretamente (sem acentos)");
-            }else{
+            if (c.name().equalsIgnoreCase(categoria)) {
                 this.categoria = c;
+                flag = true;
             }
+        }
+        if (flag == false) {
+            throw new CategoriaInvalidaException("Escreva a Categoria corretamente (sem acentos) " + categoria);
         }
     }
 

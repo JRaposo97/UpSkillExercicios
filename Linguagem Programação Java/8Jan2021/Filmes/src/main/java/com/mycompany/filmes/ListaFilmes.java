@@ -35,8 +35,8 @@ public class ListaFilmes {
     public void setIdentificador(String identificador) throws IdentificadorInvalidoException {
         if (identificador.trim().isEmpty()) {
             throw new IdentificadorInvalidoException("O Identificador não pode ser vazio");
-        } else if (Character.isUpperCase(identificador.trim().charAt(0))) {
-                throw new IdentificadorInvalidoException("O Identificador deve começar por uma letra maiuscula");
+        } else if (Character.isLowerCase(identificador.trim().charAt(0))) {
+                throw new IdentificadorInvalidoException("O Identificador deve começar por uma letra maiuscula" + identificador);
         }
         this.identificador = identificador;
     }
