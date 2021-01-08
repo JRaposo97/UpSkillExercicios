@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class ListaFilmes {
     
-    private String designacao;
+    private String identificador;
     private List<Filme> listaFilmes ;
     
     
-    public ListaFilmes(String designacao, List<Filme> listaFilmes){
-        setDesignacao(designacao);
+    public ListaFilmes(String identificador, List<Filme> listaFilmes){
+        setIdentificador(identificador);
         this.listaFilmes = new ArrayList<Filme>(listaFilmes);
     }
 
@@ -27,14 +27,14 @@ public class ListaFilmes {
      * @return the designacao
      */
     public String getDesignacao() {
-        return designacao;
+        return identificador;
     }
 
     /**
      * @param Designacao the Designacao to set
      */
-    public void setDesignacao(String designacao){
-        this.designacao = designacao;
+    public void setIdentificador(String identificador) throws IdentificadorInvalidoException{
+        this.identificador = identificador;
     }
 
     /**
