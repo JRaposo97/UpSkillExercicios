@@ -5,6 +5,7 @@
  */
 package com.mycompany.filmes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,26 +13,35 @@ import java.util.List;
  * @author joaor
  */
 public class ListaFilmes {
+    
+    private String designacao;
+    private List<Filme> listaFilmes ;
+    
+    
+    public ListaFilmes(String designacao, List<Filme> listaFilmes){
+        setDesignacao(designacao);
+        this.listaFilmes = new ArrayList<Filme>(listaFilmes);
+    }
 
     /**
-     * @return the Designacao
+     * @return the designacao
      */
     public String getDesignacao() {
-        return Designacao;
+        return designacao;
     }
 
     /**
      * @param Designacao the Designacao to set
      */
-    public void setDesignacao(String Designacao) {
-        this.Designacao = Designacao;
+    public void setDesignacao(String designacao){
+        this.designacao = designacao;
     }
 
     /**
      * @return the listaFilmes
      */
     public List<Filme> getListaFilmes() {
-        return listaFilmes;
+        return new ArrayList<Filme>(listaFilmes);
     }
 
     /**
@@ -40,6 +50,4 @@ public class ListaFilmes {
     public void setListaFilmes(List<Filme> listaFilmes) {
         this.listaFilmes = listaFilmes;
     }
-    private String Designacao;
-    private List<Filme> listaFilmes ;
 }
