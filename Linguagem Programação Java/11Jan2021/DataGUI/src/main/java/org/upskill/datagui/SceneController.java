@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 import org.upskill.datagui.model.Data;
@@ -39,7 +40,6 @@ public class SceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
 
     @FXML
     private void actionDiaSemana(ActionEvent event) {
@@ -60,8 +60,6 @@ public class SceneController implements Initializable {
         txtData.clear();
         txtData.requestFocus();
     }
-    
-    
 
     private Data validadeData(String data) {
 
@@ -85,6 +83,16 @@ public class SceneController implements Initializable {
 
         return d;
 
+    }
+
+    @FXML
+    private void OnKeyPressed(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                Data d = validadeData(txtData.getText());
+                txtDiaSemana.setText(d.diaDaSemana());
+                txtResult.setText("" + d);
+        }
     }
 
 }
