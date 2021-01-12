@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.SceneController">
+   <bottom>
+      <FlowPane alignment="CENTER" hgap="5.0" prefHeight="33.0" prefWidth="600.0" vgap="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnConverter" defaultButton="true" mnemonicParsing="false" onAction="#actionConverter" text="Converter" />
+            <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionLimpar" text="Limpar" />
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#actonSair" text="Sair" />
+         </children>
+      </FlowPane>
+   </bottom>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="45.0" text="Celcius:" />
+            <Label prefHeight="17.0" prefWidth="68.0" text="Fahrenheit:" GridPane.rowIndex="1" />
+            <TextField fx:id="txtCelcius" maxWidth="100.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtFahrenheit" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>
