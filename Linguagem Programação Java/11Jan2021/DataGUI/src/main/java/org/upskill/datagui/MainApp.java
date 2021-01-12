@@ -18,6 +18,8 @@ public class MainApp extends Application {
         
         stage.setTitle("Data GUI");
         stage.setScene(scene);
+        
+        
         stage.show();
     }
 

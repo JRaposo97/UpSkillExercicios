@@ -5,27 +5,15 @@
  */
 package org.upskill.datagui;
 
-import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
-import javafx.util.converter.DateStringConverter;
 
 import org.upskill.datagui.model.Data;
 import org.upskill.datagui.model.DiaInvalidoException;
@@ -43,7 +31,7 @@ public class SceneController implements Initializable {
     @FXML
     private Text txtResult;
     @FXML
-    private DatePicker dpDate;
+    private TextField txtData;
 
     /**
      * Initializes the controller class.
@@ -51,18 +39,17 @@ public class SceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
+    
 
     @FXML
     private void actionDiaSemana(ActionEvent event) {
-        dpDate.getValue().getYear();
-        Data d = new Data(dpDate.getValue().getYear(), dpDate.getValue().getMonthValue(), dpDate.getValue().getDayOfMonth());
+        Data d = validadeData(txtData.getText());
         txtDiaSemana.setText(d.diaDaSemana());
     }
 
     @FXML
     private void actionDataExtenso(ActionEvent event) {
-        dpDate.getValue().getYear();
-        Data d = new Data(dpDate.getValue().getYear(), dpDate.getValue().getMonthValue(), dpDate.getValue().getDayOfMonth());
+        Data d = validadeData(txtData.getText());
         txtResult.setText("" + d);
     }
 
@@ -70,16 +57,34 @@ public class SceneController implements Initializable {
     private void actionLimpar(ActionEvent event) {
         txtDiaSemana.clear();
         txtResult.setText("");
-        dpDate.getEditor().clear();
-        dpDate.requestFocus();
+        txtData.clear();
+        txtData.requestFocus();
     }
+    
+    
 
-    @FXML
-    private void enter(javafx.scene.input.KeyEvent event) {
-        dpDate.getValue().getYear();
-        Data d = new Data(dpDate.getValue().getYear(), dpDate.getValue().getMonthValue(), dpDate.getValue().getDayOfMonth());
-        txtDiaSemana.setText(d.diaDaSemana());
-        txtResult.setText("" + d);
+    private Data validadeData(String data) {
+
+        String[] arrSplit = txtData.getText().trim().split("/");
+        Data d = new Data();
+
+        try {
+            d.setData(Integer.parseInt(arrSplit[0]), Integer.parseInt(arrSplit[1]), Integer.parseInt(arrSplit[2]));
+        } catch (MesInvalidoException e) {
+            AlertaUI.criarAlerta(Alert.AlertType.ERROR, "Contador",
+                    "Mes Incorreto.", e.getMessage()).show();
+
+        } catch (DiaInvalidoException e) {
+            AlertaUI.criarAlerta(Alert.AlertType.ERROR, "Contador",
+                    "Dia Incorreto.", e.getMessage()).show();
+            txtData.clear();
+        } catch (Exception e) {
+            AlertaUI.criarAlerta(Alert.AlertType.ERROR, "Contador",
+                    "Data Invalida.", e.getMessage()).show();
+        }
+
+        return d;
+
     }
 
 }

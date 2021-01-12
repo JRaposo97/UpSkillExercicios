@@ -10,7 +10,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.upskill.datagui.SceneController">
    <bottom>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" prefHeight="55.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" prefHeight="55.0" prefWidth="323.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#actionDiaSemana" text="Dia da Semana" />
             <Button mnemonicParsing="false" onAction="#actionDataExtenso" text="Data por Extenso" />
@@ -25,8 +25,8 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="53.0" minHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label prefHeight="27.0" prefWidth="183.0" text="Data (aaaa/mm/dd):">
@@ -39,11 +39,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextArea fx:id="txtDiaSemana" editable="false" maxHeight="100.0" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpDate" onKeyPressed="#enter" GridPane.columnIndex="1" />
+            <TextArea fx:id="txtDiaSemana" editable="false" maxHeight="100.0" maxWidth="100.0" prefHeight="30.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtData" maxHeight="100.0" maxWidth="100.0" GridPane.columnIndex="1" />
          </children>
          <BorderPane.margin>
-            <Insets top="50.0" />
+            <Insets left="100.0" right="100.0" top="50.0" />
          </BorderPane.margin>
       </GridPane>
    </top>
