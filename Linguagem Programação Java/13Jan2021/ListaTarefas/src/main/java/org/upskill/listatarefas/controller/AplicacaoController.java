@@ -1,6 +1,8 @@
 package org.upskill.listatarefas.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import org.upskill.listatarefas.model.FicheiroListaTarefa;
 import org.upskill.listatarefas.model.ListaTarefas;
 import org.upskill.listatarefas.model.Prioridade;
 import org.upskill.listatarefas.model.Tarefa;
@@ -8,6 +10,7 @@ import org.upskill.listatarefas.model.Tarefa;
 public class AplicacaoController {
 
     private ListaTarefas lista;
+    private FicheiroListaTarefa ficheiroListaTarefa;
 
     //inicia atributos
     public AplicacaoController() {
@@ -34,7 +37,7 @@ public class AplicacaoController {
 
     //elimina de lista todas as tarefas
     public void eliminarTarefas() {
-         lista.limparListaTarefa();
+        lista.limparListaTarefa();
     }
 
     //retorna os elementos da lista, por ordem de inserção
@@ -50,5 +53,33 @@ public class AplicacaoController {
     //retorna um array com todos os valores de Prioridade
     public Prioridade[] getPrioridades() {
         return Prioridade.getPrioridades();
+    }
+
+    public boolean serializar() {
+        return ficheiroListaTarefa.serializar(lista);
+    }
+
+    public boolean serializar(File ficheiroExportar) {
+        return ficheiroListaTarefa.serializar(ficheiroExportar, lista);
+    }
+
+    public void desserializar() {
+        lista = ficheiroListaTarefa.desserializar();
+    }
+
+    public int desserializar(File ficheiroImportar) {
+        ListaTarefas listaTarefaImportada = ficheiroListaTarefa.desserializar(ficheiroImportar);
+
+        return lista.adicionarListaTarefas(listaTarefaImportada);
+    }
+
+    public boolean exportarTexto(File ficheiroExportar) {
+        return ficheiroListaTarefa.exportarTexto(ficheiroExportar, lista);
+    }
+    
+    public int importarTexto(File ficheiroImportar) {
+        ListaTarefas listaTarefaImportada = ficheiroListaTarefa.importarTexto(ficheiroImportar);
+
+        return lista.adicionarListaTarefas(listaTarefaImportada);
     }
 }

@@ -68,4 +68,33 @@ public class ListaTarefas {
     public boolean removerUltimaTarefa() {
         return listaTarefas.remove(listaTarefas.get(listaTarefas.size() - 1));
     }
+    
+    public String[] getListaComoArray() {
+        String[] listaTarefa = new String[listaTarefas.size()];
+        int i = 0;
+
+        for (Tarefa tarefa : listaTarefas) {
+            listaTarefa[i++] = tarefa.toStringExport();
+        }
+
+        return listaTarefa;
+    }
+    
+     public int adicionarListaTarefas(ListaTarefas outraListaTarefas) {
+        int totalTarefasAdicionadas = 0;
+        
+        for (Tarefa tarefa : outraListaTarefas.listaTarefas) {
+            boolean tarefaAdicionada = adicionarTarefa(tarefa);
+            if (tarefaAdicionada) {
+                totalTarefasAdicionadas++;
+            }
+        }
+        return totalTarefasAdicionadas;
+    }
+     
+     private boolean adicionarTarefa(Tarefa tarefa) {
+        return listaTarefas.contains(tarefa)
+                ? false
+                : listaTarefas.add(tarefa);
+    }
 }
