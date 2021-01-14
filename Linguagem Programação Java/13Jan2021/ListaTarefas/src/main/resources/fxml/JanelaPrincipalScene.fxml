@@ -32,4 +32,23 @@
             <Insets left="10.0" right="10.0" top="5.0" />
          </BorderPane.margin></TextArea>
    </right>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Ficheiros">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#mnuGuardarComoTexto" text="Guardar como texto" />
+                  <MenuItem mnemonicParsing="false" onAction="#mnuSerializacao" text="Serialização" />
+                  <MenuItem mnemonicParsing="false" onAction="#mnuDesserializacao" text="Desserialização" />
+              <MenuItem mnemonicParsing="false" onAction="#mnuSair" text="Sair" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tarefa">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#mnuAdicionarTarefa" text="Adicionar" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>

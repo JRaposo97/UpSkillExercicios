@@ -21,19 +21,7 @@ public class ListaTarefas {
     }
 
     //implementar todas as funcionalidades necessárias
-    /**
-     * @return the listaTarefas
-     */
-    public List<Tarefa> getListaTarefas() {
-        return new ArrayList<Tarefa>(listaTarefas);
-    }
 
-    /**
-     * @param listaTarefas the listaTarefas to set
-     */
-    public void setListaTarefas(List<Tarefa> listaTarefas) {
-        this.listaTarefas = listaTarefas;
-    }
 
     @Override
     public String toString() {
