@@ -17,6 +17,12 @@ public class Tarefa implements Comparable<Tarefa> {
         instante = LocalDateTime.now();
     }
 
+    public Tarefa(Tarefa tarefa) {
+        this.descricao = tarefa.descricao;
+        this.prioridade = tarefa.prioridade;
+        this.instante = tarefa.instante;
+    }
+
     public String getDescricao() {
         return descricao;
     }

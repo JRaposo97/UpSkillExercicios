@@ -93,6 +93,7 @@ public class ListaTarefas {
     }
      
      private boolean adicionarTarefa(Tarefa tarefa) {
+        tarefa = new Tarefa(tarefa);
         return listaTarefas.contains(tarefa)
                 ? false
                 : listaTarefas.add(tarefa);

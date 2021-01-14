@@ -119,7 +119,7 @@ public class JanelaPrincipalSceneController implements Initializable {
                     if (appController.listaVazia()) {
                         AlertaUI.criarAlerta(Alert.AlertType.ERROR, "Lista de Tarefas", "Erro.", "Não Pode ordenar uma lista vazia");
                     } else {
-                        txtAreaTarefas.setText(appController.getListaTarefas());
+                        txtAreaTarefas.setText(appController.getListaTarefasPorPrioridade());
                     }
             }
         }
@@ -133,12 +133,12 @@ public class JanelaPrincipalSceneController implements Initializable {
 
     @FXML
     private void mnuSerializacao(ActionEvent event) {
-        importarLista(SERIALIZACAO);
+        exportarLista(SERIALIZACAO);
     }
 
     @FXML
     private void mnuDesserializacao(ActionEvent event) {
-        exportarLista(SERIALIZACAO);
+        importarLista(SERIALIZACAO);
     }
 
     @FXML
@@ -222,23 +222,23 @@ public class JanelaPrincipalSceneController implements Initializable {
         File ficheiroImportar = flChooser.showOpenDialog(txtAreaTarefas.getScene().getWindow());
 
         if (ficheiroImportar != null) {
-            int numeroContactosImportados = 0;
+            int numeroTarefasImportadas = 0;
 
             switch (tipoFicheiro) {
                 case SERIALIZACAO:
-                    numeroContactosImportados = appController.desserializar(ficheiroImportar);
+                    numeroTarefasImportadas = appController.desserializar(ficheiroImportar);
                     break;
 
                 case TEXTO:
-                    numeroContactosImportados = appController.importarTexto(ficheiroImportar);
+                    numeroTarefasImportadas = appController.importarTexto(ficheiroImportar);
                     break;
             }
 
-            if (numeroContactosImportados > 0) {
+            if (numeroTarefasImportadas > 0) {
                 atualizaTextAreaListaTarefas();
 
                 AlertaUI.criarAlerta(Alert.AlertType.INFORMATION, "Lista Tarefas", CABECALHO_IMPORTAR,
-                        String.format("%d contacto(s) importado(s).", numeroContactosImportados)).show();
+                        String.format("%d contacto(s) importado(s).", numeroTarefasImportadas)).show();
             } else {
                 AlertaUI.criarAlerta(Alert.AlertType.INFORMATION, "Lista Tarefas", CABECALHO_IMPORTAR,
                         "Ficheiro sem contactos telefónicos para importar!").show();
