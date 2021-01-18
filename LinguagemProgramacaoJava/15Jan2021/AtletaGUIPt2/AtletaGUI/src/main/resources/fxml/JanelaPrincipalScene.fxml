@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.SceneController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Atletas">
+            <items>
+                  <Menu mnemonicParsing="false" text="Novo">
+                    <items>
+                      <MenuItem fx:id="Amador" mnemonicParsing="false" onAction="#mnuNewAmador" text="Amador" />
+                        <MenuItem fx:id="SemiProfissional" mnemonicParsing="false" onAction="#mnuNewSemiProfissional" text="SemiProfissional" />
+                        <MenuItem fx:id="Profissional" mnemonicParsing="false" onAction="#mnuNewProfissional" text="Profissional" />
+                    </items>
+                  </Menu>
+              <MenuItem mnemonicParsing="false" onAction="#mnuSair" text="Sair" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <ListView fx:id="lstAreaAtletas" prefHeight="327.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <Label text="Lista Atletas" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+   </center>
+</BorderPane>
