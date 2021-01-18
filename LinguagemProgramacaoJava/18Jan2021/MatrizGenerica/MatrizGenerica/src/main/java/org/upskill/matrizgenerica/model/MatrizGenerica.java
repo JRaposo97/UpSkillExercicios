@@ -13,6 +13,7 @@ public class MatrizGenerica<E> {
         this.numeroMaximoColunas = 0;
     }
 
+
     public int getNumeroDeLinhas() {
         return this.matrizGenerica.size();
     }
@@ -84,14 +85,14 @@ public class MatrizGenerica<E> {
         return (E) matrizGenerica.get(indiceLinha).get(indiceColuna);
     }
 
-    private boolean addLine(List<E> a) {
+    public boolean addLine(List<E> a) {
         if(a.size() > numeroMaximoColunas){
             this.numeroMaximoColunas = a.size();
         }
         return matrizGenerica.add(a);
     }
 
-    private boolean verifyElem(E elem) {
+    public boolean verifyElem(E elem) {
         boolean flag = false;
         for (int i = 0; i < matrizGenerica.size(); i++) {
             for (int j = 0; j < matrizGenerica.get(i).size(); j++) {
@@ -103,13 +104,14 @@ public class MatrizGenerica<E> {
         return flag;
     }
 
-    private boolean subElem(int nrLinha, int nrColuna, E elem) {
+    public void subElem(int nrLinha, int nrColuna, E elem) {
         try {
             verificarIndices(nrLinha, nrColuna);
+            matrizGenerica.get(nrLinha).set(nrColuna, elem);
         } catch (Exception e) {
             throw new IndexOutOfBoundsException(e.getMessage());
         }
-        return matrizGenerica.set((matrizGenerica.get(nrLinha).get(nrColuna)), elem);
+        
     }
 
     public <E> void removeLine(int nrLinha) {
