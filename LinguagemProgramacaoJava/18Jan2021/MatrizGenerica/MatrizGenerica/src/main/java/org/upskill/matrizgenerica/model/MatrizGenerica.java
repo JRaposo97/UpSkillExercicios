@@ -78,18 +78,47 @@ public class MatrizGenerica<E> {
         try {
             verificarIndices(indiceLinha, indiceColuna);
         } catch (Exception e) {
-             throw new IndexOutOfBoundsException(e.getMessage());
+            throw new IndexOutOfBoundsException(e.getMessage());
         }
-        
+
         System.out.println(matrizGenerica.get(indiceLinha).get(indiceLinha));
     }
-    
-    private boolean addLine(List<E> a){
+
+    private boolean addLine(List<E> a) {
         return matrizGenerica.add(a);
     }
-    
-    private boolean verifyElem(E elem){
-        return matrizGenerica.contains(elem);
+
+    private boolean verifyElem(E elem) {
+        boolean flag = false;
+        for (int i = 0; i < matrizGenerica.size(); i++) {
+            for (int j = 0; j < matrizGenerica.get(i).size(); j++) {
+                if (matrizGenerica.get(i).get(j).equals(elem)) {
+                    flag = true;
+                }
+            }
+        }
+        return flag;
+    }
+
+    private boolean subElem(int nrLinha, int nrColuna, E elem) {
+        try {
+            verificarIndices(nrLinha, nrColuna);
+        } catch (Exception e) {
+            throw new IndexOutOfBoundsException(e.getMessage());
+        }
+        return matrizGenerica.set((matrizGenerica.get(nrLinha).get(nrColuna)), elem);
+    }
+
+    private void removeLine(int nrLinha) {
+        try {
+            verificarIndiceLinha(nrLinha);
+            matrizGenerica.remove(nrLinha);
+        } catch (Exception e) {
+            throw new IndexOutOfBoundsException(e.getMessage());
+        }
+        
+        
+        
     }
 
 }
