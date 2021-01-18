@@ -74,17 +74,20 @@ public class MatrizGenerica<E> {
                 + ", Tamanho: " + this.matrizGenerica.get(indice).size();
     }
 
-    private <E> void getElem(int indiceLinha, int indiceColuna) {
+    public <E> E getElem(int indiceLinha, int indiceColuna) {
         try {
             verificarIndices(indiceLinha, indiceColuna);
         } catch (Exception e) {
             throw new IndexOutOfBoundsException(e.getMessage());
         }
-
-        System.out.println(matrizGenerica.get(indiceLinha).get(indiceLinha));
+        
+        return (E) matrizGenerica.get(indiceLinha).get(indiceColuna);
     }
 
     private boolean addLine(List<E> a) {
+        if(a.size() > numeroMaximoColunas){
+            this.numeroMaximoColunas = a.size();
+        }
         return matrizGenerica.add(a);
     }
 
@@ -109,16 +112,27 @@ public class MatrizGenerica<E> {
         return matrizGenerica.set((matrizGenerica.get(nrLinha).get(nrColuna)), elem);
     }
 
-    private void removeLine(int nrLinha) {
+    public <E> void removeLine(int nrLinha) {
         try {
             verificarIndiceLinha(nrLinha);
             matrizGenerica.remove(nrLinha);
         } catch (Exception e) {
             throw new IndexOutOfBoundsException(e.getMessage());
         }
+    }
+
+    public E[] returnColuna(int nrColuna) {
+        List<E> arr = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < matrizGenerica.size(); i++) {
+            arr.add(matrizGenerica.get(i).get(nrColuna));
+            count++;
+        }
+        E[] array = (E[])new Object[count][];
         
+        array = arr.toArray(array);
         
-        
+        return array;
     }
 
 }
