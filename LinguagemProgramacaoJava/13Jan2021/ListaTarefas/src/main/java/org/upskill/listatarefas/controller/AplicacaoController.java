@@ -14,7 +14,9 @@ public class AplicacaoController {
 
     //inicia atributos
     public AplicacaoController() {
-        lista = new ListaTarefas();
+        ficheiroListaTarefa = new FicheiroListaTarefa();
+        
+        desserializar();
     }
 
     //adiciona uma nova tarefa na lista

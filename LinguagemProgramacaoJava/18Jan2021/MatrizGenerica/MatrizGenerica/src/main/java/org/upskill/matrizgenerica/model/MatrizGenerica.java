@@ -1,6 +1,7 @@
 package org.upskill.matrizgenerica.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MatrizGenerica<E> {
@@ -12,7 +13,6 @@ public class MatrizGenerica<E> {
         this.matrizGenerica = new ArrayList<>();
         this.numeroMaximoColunas = 0;
     }
-
 
     public int getNumeroDeLinhas() {
         return this.matrizGenerica.size();
@@ -81,27 +81,25 @@ public class MatrizGenerica<E> {
         } catch (Exception e) {
             throw new IndexOutOfBoundsException(e.getMessage());
         }
-        
+
         return (E) matrizGenerica.get(indiceLinha).get(indiceColuna);
     }
 
-    public boolean addLine(List<E> a) {
-        if(a.size() > numeroMaximoColunas){
+    public boolean addLine(Collection<? extends E> a) {
+        if (a.size() > numeroMaximoColunas) {
             this.numeroMaximoColunas = a.size();
         }
-        return matrizGenerica.add(a);
+        return matrizGenerica.add(new ArrayList<>(a));
     }
 
     public boolean verifyElem(E elem) {
-        boolean flag = false;
-        for (int i = 0; i < matrizGenerica.size(); i++) {
-            for (int j = 0; j < matrizGenerica.get(i).size(); j++) {
-                if (matrizGenerica.get(i).get(j).equals(elem)) {
-                    flag = true;
-                }
+
+        for (List<E> linha : matrizGenerica) {
+            if (linha.contains(elem)) {
+                return true;
             }
         }
-        return flag;
+        return false;
     }
 
     public void subElem(int nrLinha, int nrColuna, E elem) {
@@ -111,30 +109,41 @@ public class MatrizGenerica<E> {
         } catch (Exception e) {
             throw new IndexOutOfBoundsException(e.getMessage());
         }
-        
+
     }
 
-    public <E> void removeLine(int nrLinha) {
-        try {
-            verificarIndiceLinha(nrLinha);
-            matrizGenerica.remove(nrLinha);
-        } catch (Exception e) {
-            throw new IndexOutOfBoundsException(e.getMessage());
+    public List<E> removeLine(int nrLinha) {
+
+        verificarIndiceLinha(nrLinha);
+        int nrColunas = getNumeroDeColunas(nrLinha);
+        List<E> lista = matrizGenerica.remove(nrLinha);
+
+        if (nrColunas == numeroMaximoColunas) {
+            for (int i = 0; i < getNumeroDeLinhas(); i++) {
+                if (getNumeroDeColunas(i) > numeroMaximoColunas) {
+                    numeroMaximoColunas = getNumeroDeColunas(i);
+                }
+
+            }
         }
+
+        return lista;
     }
 
     public E[] returnColuna(int nrColuna) {
         List<E> arr = new ArrayList<>();
         int count = 0;
+
         for (int i = 0; i < matrizGenerica.size(); i++) {
-            arr.add(matrizGenerica.get(i).get(nrColuna));
-            count++;
+            if (matrizGenerica.size() < nrColuna) {
+                arr.add(matrizGenerica.get(i).get(nrColuna));
+                count++;
+            }
         }
-        E[] array = (E[])new Object[count][];
-        
+        E[] array = (E[]) new Object[count][];
+
         array = arr.toArray(array);
-        
+
         return array;
     }
-
 }
