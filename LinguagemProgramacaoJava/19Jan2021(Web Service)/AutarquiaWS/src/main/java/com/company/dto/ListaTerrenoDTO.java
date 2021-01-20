@@ -28,7 +28,7 @@ public class ListaTerrenoDTO {
         return terrenos;
     }
 
-    public void setFreguesias(ArrayList<TerrenoDTO> terrenos) {
+    public void setTerrenos(ArrayList<TerrenoDTO> terrenos) {
         this.terrenos = terrenos;
     }
 }

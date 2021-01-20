@@ -257,5 +257,9 @@ public class Autarquia implements Serializable {
         }
     }
 
+    public ArrayList<Terreno> getAllTerrenos(ArrayList<Terreno> terrenos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }

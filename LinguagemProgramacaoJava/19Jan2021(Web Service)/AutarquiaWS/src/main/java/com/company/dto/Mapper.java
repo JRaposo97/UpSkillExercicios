@@ -13,13 +13,14 @@ import com.company.model.Data;
 import com.company.model.Freguesia;
 import com.company.model.Funcionario;
 import com.company.model.Pessoa;
+import com.company.model.Terreno;
 import java.util.ArrayList;
 
 public class Mapper {
 
     public static DataDTO data2dataDTO(Data data) throws NullPointerException {
-        DataDTO dataDTO = new DataDTO(data.getDia(),data.getMes(),data.getAno());
-        
+        DataDTO dataDTO = new DataDTO(data.getDia(), data.getMes(), data.getAno());
+
         return dataDTO;
     }
 
@@ -30,7 +31,7 @@ public class Mapper {
     }
 
     public static PessoaDTO pessoa2PessoaDTO(Pessoa pessoa) throws NullPointerException {
-        PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(),pessoa.getNome(),data2dataDTO(pessoa.getNascimento()));
+        PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(), pessoa.getNome(), data2dataDTO(pessoa.getNascimento()));
 
         return pessoaDTO;
     }
@@ -59,13 +60,13 @@ public class Mapper {
 
     public static FuncionarioDTO funcionario2FuncionarioDTO(Funcionario funcionario) throws
             NullPointerException {
-        FuncionarioDTO funcionarioDTO = 
-                new FuncionarioDTO(funcionario.getNif(),
+        FuncionarioDTO funcionarioDTO
+                = new FuncionarioDTO(funcionario.getNif(),
                         funcionario.getNome(),
                         data2dataDTO(funcionario.getNascimento()),
                         funcionario.getNumeroFuncionario(),
                         funcionario.getCargo());
-   
+
         return funcionarioDTO;
     }
 
@@ -120,5 +121,32 @@ public class Mapper {
         ListaFreguesiaDTO listaFreguesiaDTO = new ListaFreguesiaDTO();
         listaFreguesiaDTO.setFreguesias(freguesiasDTO);
         return listaFreguesiaDTO;
+    }
+
+    public static ListaTerrenoDTO listterreno2terrenoDTO(ArrayList<Terreno> terrenos) {
+       ArrayList<TerrenoDTO> terrenosDTO = new ArrayList<>();
+        for (Terreno terreno : terrenos) {
+            try {
+                TerrenoDTO terrenoDTO = terreno2TerrenoDTO(terreno);
+                terrenosDTO.add(terrenoDTO);
+            } catch (NullPointerException e) {
+//does nothing. Actually, nothing is added to arraylist
+            }
+        }
+        ListaTerrenoDTO listaTerrenoDTO = new ListaTerrenoDTO();
+        listaTerrenoDTO.setTerrenos(terrenosDTO);
+        return listaTerrenoDTO;
+    }
+
+    public static TerrenoDTO terreno2TerrenoDTO(Terreno terreno) {
+        TerrenoDTO terrenoDTO = new TerrenoDTO();
+        terrenoDTO.setId(terreno.getId());
+        terrenoDTO.setNome(terreno.getNome());
+        terrenoDTO.setForma(terreno.getShape().accept(v));
+        return terrenoDTO;
+    }
+
+    public static Terreno terrenoDTO2Terreno(TerrenoDTO terrenoDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
