@@ -25,6 +25,14 @@ public class FuncionarioDTO extends PessoaDTO {
     public FuncionarioDTO() {
         super();
     }
+    
+    public FuncionarioDTO(long nif, String nome, DataDTO nascimento, int nrFuncionario, String cargo){
+        this.setNif(nif);
+        this.setNome(nome);
+        this.setNascimento(nascimento);
+        this.setNumeroFuncionario(nrFuncionario);
+        this.setCargo(cargo);
+    }
 
     public int getNumeroFuncionario() {
         return numeroFuncionario;

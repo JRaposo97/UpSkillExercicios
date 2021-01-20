@@ -38,7 +38,7 @@ public class FreguesiasService {
         if (freguesiaDTO != null) {
             return freguesiaDTO;
         } else {
-            throw new ConversaoException("PessoaDTO");
+            throw new ConversaoException("FreguesiaDTO");
         }
     }
 

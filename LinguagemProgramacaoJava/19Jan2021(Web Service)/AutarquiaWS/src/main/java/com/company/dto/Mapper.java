@@ -18,10 +18,8 @@ import java.util.ArrayList;
 public class Mapper {
 
     public static DataDTO data2dataDTO(Data data) throws NullPointerException {
-        DataDTO dataDTO = new DataDTO();
-        dataDTO.setDia(data.getDia());
-        dataDTO.setMes(data.getMes());
-        dataDTO.setAno(data.getAno());
+        DataDTO dataDTO = new DataDTO(data.getDia(),data.getMes(),data.getAno());
+        
         return dataDTO;
     }
 
@@ -32,11 +30,8 @@ public class Mapper {
     }
 
     public static PessoaDTO pessoa2PessoaDTO(Pessoa pessoa) throws NullPointerException {
-        PessoaDTO pessoaDTO = new PessoaDTO();
-        pessoaDTO.setNif(pessoa.getNif());
-        pessoaDTO.setNome(pessoa.getNome());
-        DataDTO dataDTO = data2dataDTO(pessoa.getNascimento());
-        pessoaDTO.setNascimento(dataDTO);
+        PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(),pessoa.getNome(),data2dataDTO(pessoa.getNascimento()));
+
         return pessoaDTO;
     }
 
@@ -64,13 +59,13 @@ public class Mapper {
 
     public static FuncionarioDTO funcionario2FuncionarioDTO(Funcionario funcionario) throws
             NullPointerException {
-        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
-        funcionarioDTO.setNif(funcionario.getNif());
-        funcionarioDTO.setNome(funcionario.getNome());
-        DataDTO dataDTO = data2dataDTO(funcionario.getNascimento());
-        funcionarioDTO.setNascimento(dataDTO);
-        funcionarioDTO.setNumeroFuncionario(funcionario.getNumeroFuncionario());
-        funcionarioDTO.setCargo(funcionario.getCargo());
+        FuncionarioDTO funcionarioDTO = 
+                new FuncionarioDTO(funcionario.getNif(),
+                        funcionario.getNome(),
+                        data2dataDTO(funcionario.getNascimento()),
+                        funcionario.getNumeroFuncionario(),
+                        funcionario.getCargo());
+   
         return funcionarioDTO;
     }
 

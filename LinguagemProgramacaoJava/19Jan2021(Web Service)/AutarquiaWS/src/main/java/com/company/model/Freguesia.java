@@ -35,11 +35,7 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
      * @param nomeFreguesia the nomeFreguesia to set
      */
     public void setNomeFreguesia(String nomeFreguesia) {
-        this.nomeFreguesia = nomeFreguesia;
-    }
-    
-    public void setNome(String nomeFreguesia) throws NomeFreguesiaInvalidoException {
-        if (eNomeFreguesiaValida(nomeFreguesia)) {
+         if (eNomeFreguesiaValida(nomeFreguesia)) {
             this.nomeFreguesia = nomeFreguesia;
         } else {
             throw new NomeFreguesiaInvalidoException(nomeFreguesia + ": Nome Freguesia invalido");

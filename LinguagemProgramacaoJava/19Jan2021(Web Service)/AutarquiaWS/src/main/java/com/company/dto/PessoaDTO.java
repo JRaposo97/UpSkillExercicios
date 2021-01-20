@@ -26,6 +26,12 @@ public class PessoaDTO {
 
     public PessoaDTO() {
     }
+    
+    public PessoaDTO(long nif, String nome, DataDTO nascimento){
+        setNif(nif);
+        setNome(nome);
+        setNascimento(nascimento);
+    }
 
     public long getNif() {
         return nif;

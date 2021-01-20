@@ -29,7 +29,7 @@ public class FreguesiasController {
     @RequestMapping(value = "/freguesias",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getPessoas() {
+    public ResponseEntity<Object> getFreguesias() {
         try {
             ListaFreguesiaDTO listaFreguesiaDTO = FreguesiasService.getFreguesias();
             if (listaFreguesiaDTO.getFreguesias().size() > 0) {
@@ -45,7 +45,7 @@ public class FreguesiasController {
     @RequestMapping(value = "/freguesias/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> getPessoa(@PathVariable("id") String nomeFreguesia) {
+    public ResponseEntity<Object> getFreguesias(@PathVariable("id") String nomeFreguesia) {
         try {
             FreguesiaDTO freguesiaDTO = FreguesiasService.getFreguesia(nomeFreguesia);
             if (freguesiaDTO != null) {
@@ -62,7 +62,7 @@ public class FreguesiasController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_XML_VALUE,
             produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> addPessoa(@RequestBody FreguesiaDTO freguesiaDTO) {
+    public ResponseEntity<Object> addFreguesias(@RequestBody FreguesiaDTO freguesiaDTO) {
         try {
             FreguesiasService.addFreguesia(freguesiaDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -75,7 +75,7 @@ public class FreguesiasController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_XML_VALUE,
              produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> updatePessoa(@PathVariable("id") String nomeFreguesia, @RequestBody FreguesiaDTO freguesiaDTO
+    public ResponseEntity<Object> updateFreguesias(@PathVariable("id") String nomeFreguesia, @RequestBody FreguesiaDTO freguesiaDTO
     ) {
         try {
             FreguesiasService.addFreguesia(freguesiaDTO);
@@ -88,7 +88,7 @@ public class FreguesiasController {
     @RequestMapping(value = "/freguesias/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Object> removePessoa(@PathVariable("id") String nomeFreguesia) {
+    public ResponseEntity<Object> removeFreguesias(@PathVariable("id") String nomeFreguesia) {
         try {
             FreguesiasService.removeFreguesia(nomeFreguesia);
             return new ResponseEntity<>(HttpStatus.OK);

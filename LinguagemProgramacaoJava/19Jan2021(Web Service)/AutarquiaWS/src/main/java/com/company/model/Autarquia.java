@@ -80,7 +80,7 @@ public class Autarquia implements Serializable {
                 }
             }
         }
-        throw new ElementoNaoExistenteException(nif + ": N~ao existe essa pessoa");
+        throw new ElementoNaoExistenteException(nif + ": Não existe essa pessoa");
     }
 
     public void updatePessoa(long nif, Pessoa p) throws ElementoNaoExistenteException {
@@ -89,7 +89,7 @@ public class Autarquia implements Serializable {
         for (int i = 0; i < this.pessoas.size() && !updated; i++) {
             pessoa = this.pessoas.get(i);
             if (pessoa.getNif() == nif) {
-                pessoa = p;
+                this.pessoas.set(i,p);
                 updated = true;
             }
         }
@@ -175,7 +175,7 @@ public class Autarquia implements Serializable {
             if (pessoa instanceof Funcionario) {
                 funcionario = (Funcionario) pessoa;
                 if (funcionario.getNumeroFuncionario() == nr) {
-                    funcionario = f;
+                    this.pessoas.set(i, f);
                     updated = true;
                 }
             }
@@ -212,7 +212,7 @@ public class Autarquia implements Serializable {
     public void addFreguesia(Freguesia freguesia) throws NomeFreguesiaDuplicadoException {
         Freguesia f = getFreguesiaByNome(freguesia.getNomeFreguesia());
         if (f == null) {
-            this.freguesias.add(f);
+            this.freguesias.add(freguesia);
         } else {
             throw new NomeFreguesiaDuplicadoException(f.getNomeFreguesia() + ": Nome de Freguesia ja existe");
         }
@@ -222,7 +222,7 @@ public class Autarquia implements Serializable {
         Freguesia freg = null;
         for (int i = 0; i < this.freguesias.size(); i++) {
             freg = this.freguesias.get(i);
-            if (freg.getNomeFreguesia() == nomeFreguesia) {
+            if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
                 Freguesia copia = new Freguesia(freg);
                 return copia;
             }
@@ -234,7 +234,7 @@ public class Autarquia implements Serializable {
         Freguesia freg = null;
         for (int i = 0; i < this.freguesias.size(); i++) {
             freg = this.freguesias.get(i);
-            if (freg.getNomeFreguesia() == nomeFreguesia) {
+            if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
                     this.pessoas.remove(i);
                     return;
             }
@@ -247,8 +247,8 @@ public class Autarquia implements Serializable {
         boolean updated = false;
         for (int i = 0; i < this.freguesias.size() && !updated; i++) {
             freg = this.freguesias.get(i);
-            if (freg.getNomeFreguesia() == nomeFreguesia) {
-                freg = f;
+            if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
+                this.freguesias.set(i, f);
                 updated = true;
             }
         }
