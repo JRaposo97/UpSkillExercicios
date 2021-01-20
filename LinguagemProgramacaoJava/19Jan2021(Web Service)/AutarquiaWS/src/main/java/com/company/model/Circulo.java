@@ -11,7 +11,7 @@ import com.company.exception.RaioInvalidoException;
  *
  * @author joaor
  */
-public class Circulo extends Terreno {
+public class Circulo extends Forma {
 
     /**
      * @return the raio
@@ -33,8 +33,7 @@ public class Circulo extends Terreno {
 
     private double raio;
 
-    public Circulo(String nome, Double raio) {
-        super(nome, Shape.Circulo);
+    public Circulo(Double raio) {
         setRaio(raio);
 
     }

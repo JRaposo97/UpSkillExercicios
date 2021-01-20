@@ -5,20 +5,19 @@
  */
 package com.company.model;
 
-import com.company.exception.AlturaRectanguloNegativeOrNullException;
+import com.company.exception.AlturaNegativeOrNullException;
 import com.company.exception.CumpRectanguloNegativeOrNullException;
 
 /**
  *
  * @author joaor
  */
-public class Rectangulo extends Terreno {
+public class Rectangulo extends Forma {
 
     private Double altura;
     private Double cumprimento;
 
-    public Rectangulo(String nome, Double altura, Double cumprimento) throws AlturaRectanguloNegativeOrNullException, CumpRectanguloNegativeOrNullException {
-        super(nome, Shape.Rectangulo);
+    public Rectangulo(Double altura, Double cumprimento) throws AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
         setAltura(altura);
         setCumprimento(cumprimento);
     }
@@ -33,9 +32,9 @@ public class Rectangulo extends Terreno {
     /**
      * @param altura the altura to set
      */
-    public void setAltura(Double altura) throws AlturaRectanguloNegativeOrNullException {
+    public void setAltura(Double altura) throws AlturaNegativeOrNullException {
         if (altura == null || altura < 0) {
-            throw new AlturaRectanguloNegativeOrNullException("Altura tem de ser um numero positivo.");
+            throw new AlturaNegativeOrNullException("Altura tem de ser um numero positivo.");
         } else {
             this.altura = altura;
         }

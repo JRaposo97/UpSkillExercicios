@@ -5,8 +5,12 @@
  */
 package com.company.model;
 
+import com.company.exception.ElementoNaoExistenteException;
+import com.company.exception.NifDuplicadoException;
+import com.company.exception.NomeFreguesiaDuplicadoException;
 import com.company.exception.NomeFreguesiaInvalidoException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,9 +19,12 @@ import java.io.Serializable;
 public class Freguesia implements Serializable, Comparable<Freguesia>{
 
     private String nomeFreguesia;
+    private ArrayList<Terreno> terrenos;
+
 
     public Freguesia(String nomeFreguesia) {
         setNomeFreguesia(nomeFreguesia);
+        this.terrenos = new ArrayList<>();
     }
     
     public Freguesia(Freguesia f){
@@ -62,4 +69,62 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
        return nomeFreguesia.compareToIgnoreCase(o.getNomeFreguesia());
     }
 
+    //Freguesias
+    public ArrayList<Terreno> getTerrenos() {
+        return new ArrayList<Terreno>(terrenos);
+    }
+    
+    public Terreno getTerreno(int id) {
+        return getTerrenoByID(id);
+    }
+
+    public void addTerreno(Terreno terreno) {
+        Terreno t = getTerrenoByID(terreno.getId());
+        if (t == null) {
+            this.terrenos.add(terreno);
+        }
+    }
+    
+    
+    private Terreno getTerrenoByID(int id) {
+       Terreno terr = null;
+        for (int i = 0; i < this.terrenos.size(); i++) {
+            terr = this.terrenos.get(i);
+            if (terr.getId() == id) {
+                Terreno copia = new Terreno(terr);
+                return copia;
+            }
+        }
+        return null;
+    }
+
+    
+    public void removeTerreno(int idTerreno) throws ElementoNaoExistenteException {
+        Terreno terr = null;
+        for (int i = 0; i < this.terrenos.size(); i++) {
+            terr = this.terrenos.get(i);
+            if (terr.getId() == idTerreno) {
+                    this.terrenos.remove(i);
+                    return;
+            }
+        }
+        throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe esse Terreno");
+    }
+
+    public void updateTerreno(int idTerreno, Terreno t) throws ElementoNaoExistenteException {
+        Terreno terr = null;
+        boolean updated = false;
+        for (int i = 0; i < this.terrenos.size() && !updated; i++) {
+            terr = this.terrenos.get(i);
+            if (terr.getId() == idTerreno) {
+                this.terrenos.set(i, t);
+                updated = true;
+            }
+        }
+        if (updated == false) {
+            throw new ElementoNaoExistenteException(nomeFreguesia + ": Não Existe esse Terreno");
+        }
+    }
+
+    
 }

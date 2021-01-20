@@ -5,22 +5,26 @@
  */
 package com.company.model;
 
+import com.company.exception.AlturaNegativeOrNullException;
+import com.company.exception.BaseNegativeOrNull;
+
 /**
  *
  * @author joaor
  */
-public class Triangulo extends Terreno {
+public class Triangulo extends Forma {
 
     private Double base;
     private Double altura;
 
-    public Triangulo(String nome, Double base, Double altura) {
-        super(nome, Shape.Triangulo);
+    public Triangulo(Double base, Double altura) throws BaseNegativeOrNull, AlturaNegativeOrNullException {
+        setBase(base);
+        setAltura(altura);
     }
 
     @Override
     public double calcularAreaTerreno() {
-        return (getBase()*getAltura())/2;
+        return (getBase() * getAltura()) / 2;
     }
 
     /**
@@ -33,8 +37,12 @@ public class Triangulo extends Terreno {
     /**
      * @param base the base to set
      */
-    public void setBase(Double base) {
-        this.base = base;
+    public void setBase(Double base) throws BaseNegativeOrNull {
+        if (altura == null || altura < 0) {
+            throw new BaseNegativeOrNull("Base tem de ser um numero positivo.");
+        } else {
+            this.base = base;
+        }
     }
 
     /**
@@ -47,8 +55,11 @@ public class Triangulo extends Terreno {
     /**
      * @param altura the altura to set
      */
-    public void setAltura(Double altura) {
-        this.altura = altura;
+    public void setAltura(Double altura) throws AlturaNegativeOrNullException {
+        if (altura == null || altura < 0) {
+            throw new AlturaNegativeOrNullException("Altura tem de ser um numero positivo.");
+        } else {
+            this.altura = altura;
+        }
     }
-
 }

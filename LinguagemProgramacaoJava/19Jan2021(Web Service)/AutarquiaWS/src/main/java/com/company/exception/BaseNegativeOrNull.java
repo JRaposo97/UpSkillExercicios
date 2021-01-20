@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.company.model;
+package com.company.exception;
 
 /**
  *
  * @author joaor
  */
-public enum Shape {
-        Circulo,
-        Rectangulo,
-        Triangulo;
+public class BaseNegativeOrNull extends Exception {
+
+    public BaseNegativeOrNull(String msg) {
+        super(msg);
+    }
 }

@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.company.exception;
+package com.company.dto;
 
 /**
  *
  * @author joaor
  */
-public class AlturaRectanguloNegativeOrNullException extends Exception {
-
-    public AlturaRectanguloNegativeOrNullException(String msg) {
-        super(msg);
-    }
+public class TrianguloDTO {
+    
 }
