@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.company.dto;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author joaor
+ */
+@JacksonXmlRootElement(localName = "terrenos")
+public class ListaTerrenoDTO {
+
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(localName = "terrenos")
+    private ArrayList<TerrenoDTO> terrenos;
+
+    public ListaTerrenoDTO() {
+    }
+
+    public ArrayList<TerrenoDTO> getTerrenos() {
+        return terrenos;
+    }
+
+    public void setFreguesias(ArrayList<TerrenoDTO> terrenos) {
+        this.terrenos = terrenos;
+    }
+}

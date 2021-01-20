@@ -6,12 +6,13 @@
 package com.company.model;
 
 import com.company.exception.RaioInvalidoException;
+import java.io.Serializable;
 
 /**
  *
  * @author joaor
  */
-public class Circulo extends Forma {
+public class Circulo extends Forma implements Serializable{
 
     public <T> T accept(FormaVisitor<T> v) {
         return v.visit(this);
