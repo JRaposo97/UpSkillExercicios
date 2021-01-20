@@ -23,7 +23,7 @@ public class FreguesiaDTO {
         return nomeFreguesia;
     }
 
-    public void setNif(String nomeFreguesia) {
+    public void setNomeFreguesia(String nomeFreguesia) {
         this.nomeFreguesia = nomeFreguesia;
     }
 

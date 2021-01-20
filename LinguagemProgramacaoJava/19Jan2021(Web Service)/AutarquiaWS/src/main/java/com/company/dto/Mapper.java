@@ -10,6 +10,7 @@ package com.company.dto;
  * @author joaor
  */
 import com.company.model.Data;
+import com.company.model.Freguesia;
 import com.company.model.Funcionario;
 import com.company.model.Pessoa;
 import java.util.ArrayList;
@@ -96,5 +97,33 @@ public class Mapper {
         ListaFuncionarioDTO listaFuncionarioDTO = new ListaFuncionarioDTO();
         listaFuncionarioDTO.setFuncionarios(funcionariosDTO);
         return listaFuncionarioDTO;
+    }
+
+    ////////////////// Freguesias
+    public static FreguesiaDTO freguesia2FreguesiaDTO(Freguesia freguesia) throws NullPointerException {
+        FreguesiaDTO freguesiaDTO = new FreguesiaDTO();
+        freguesiaDTO.setNomeFreguesia(freguesia.getNomeFreguesia());
+        return freguesiaDTO;
+    }
+
+    public static Freguesia freguesiaDTO2Freguesia(FreguesiaDTO freguesiaDTO) throws NullPointerException {
+        Freguesia freguesia = null;
+        freguesia = new Freguesia(freguesiaDTO.getNomeFreguesia());
+        return freguesia;
+    }
+
+    public static ListaFreguesiaDTO listfreguesia2freguesiaDTO(ArrayList<Freguesia> freguesias) throws NullPointerException {
+        ArrayList<FreguesiaDTO> freguesiasDTO = new ArrayList<>();
+        for (Freguesia freguesia : freguesias) {
+            try {
+                FreguesiaDTO freguesiaDTO = freguesia2FreguesiaDTO(freguesia);
+                freguesiasDTO.add(freguesiaDTO);
+            } catch (NullPointerException e) {
+//does nothing. Actually, nothing is added to arraylist
+            }
+        }
+        ListaFreguesiaDTO listaFreguesiaDTO = new ListaFreguesiaDTO();
+        listaFreguesiaDTO.setFreguesias(freguesiasDTO);
+        return listaFreguesiaDTO;
     }
 }
