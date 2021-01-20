@@ -13,6 +13,16 @@ import com.company.exception.RaioInvalidoException;
  */
 public class Circulo extends Forma {
 
+    public <T> T accept(FormaVisitor<T> v) {
+        return v.visit(this);
+    }
+
+    private double raio;
+
+    public Circulo(Double raio) {
+        setRaio(raio);
+    }
+
     /**
      * @return the raio
      */
@@ -29,13 +39,6 @@ public class Circulo extends Forma {
         } else {
             throw new RaioInvalidoException("Raio do Circulo tem de ser Positivo");
         }
-    }
-
-    private double raio;
-
-    public Circulo(Double raio) {
-        setRaio(raio);
-
     }
 
     @Override

@@ -13,6 +13,10 @@ import com.company.exception.BaseNegativeOrNull;
  * @author joaor
  */
 public class Triangulo extends Forma {
+    
+    public <T> T accept(FormaVisitor<T> v) {
+        return v.visit(this);
+    }
 
     private Double base;
     private Double altura;

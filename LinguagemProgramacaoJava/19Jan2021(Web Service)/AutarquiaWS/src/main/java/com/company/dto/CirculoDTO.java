@@ -9,6 +9,7 @@ package com.company.dto;
  *
  * @author joaor
  */
+import com.company.model.Circulo;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -23,6 +24,10 @@ public class CirculoDTO {
  
 
     public CirculoDTO() {
+    }
+    
+    public CirculoDTO(Circulo c){
+        this.raio = c.getRaio();
     }
 
     public CirculoDTO(Double raio) {

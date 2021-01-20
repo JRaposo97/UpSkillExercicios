@@ -21,6 +21,10 @@ public class Rectangulo extends Forma {
         setAltura(altura);
         setCumprimento(cumprimento);
     }
+    
+    public <T> T accept(FormaVisitor<T> v) {
+        return v.visit(this);
+    }
 
     /**
      * @return the altura
