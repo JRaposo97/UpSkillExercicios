@@ -7,6 +7,7 @@ package com.company.model;
 
 import com.company.exception.ElementoNaoExistenteException;
 import com.company.exception.NifDuplicadoException;
+import com.company.exception.NomeFreguesiaDuplicadoException;
 import com.company.exception.NumeroFuncionarioDuplicadoException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,12 +16,15 @@ public class Autarquia implements Serializable {
 
     private String nome;
     private ArrayList<Pessoa> pessoas;
+    private ArrayList<Freguesia> freguesias;
 
     public Autarquia(String nome) {
         this.nome = nome;
         this.pessoas = new ArrayList<Pessoa>();
+        this.freguesias = new ArrayList<Freguesia>();
     }
 
+    //PESSOA
     public ArrayList<Pessoa> getAllPessoas() {
         Pessoa pessoa;
         ArrayList<Pessoa> lista = new ArrayList<>();
@@ -72,7 +76,7 @@ public class Autarquia implements Serializable {
                     this.pessoas.remove(i);
                     return;
                 } else {
-                    throw new ElementoNaoExistenteException(nif + ": N~ao ´euma pessoa, ´eum funcion´ario");
+                    throw new ElementoNaoExistenteException(nif + ": Não é uma pessoa, ´e um funcionário");
                 }
             }
         }
@@ -106,6 +110,7 @@ public class Autarquia implements Serializable {
         return null;
     }
 
+    // FUNCIONARIO
     public ArrayList<Funcionario> getFuncionarios() {
         Pessoa pessoa;
         ArrayList<Funcionario> lista = new ArrayList<>();
@@ -194,4 +199,62 @@ public class Autarquia implements Serializable {
         }
         return null;
     }
+
+    //Freguesias
+    public ArrayList<Freguesia> getFreguesias() {
+        return new ArrayList<Freguesia>(freguesias);
+    }
+    
+    public Freguesia getFreguesia(String nomeFreguesia) {
+        return getFreguesiaByNome(nomeFreguesia);
+    }
+
+    public void addFreguesia(Freguesia freguesia) throws NomeFreguesiaDuplicadoException {
+        Freguesia f = getFreguesiaByNome(freguesia.getNomeFreguesia());
+        if (f == null) {
+            this.freguesias.add(f);
+        } else {
+            throw new NomeFreguesiaDuplicadoException(f.getNomeFreguesia() + ": Nome de Freguesia ja existe");
+        }
+    }
+
+    private Freguesia getFreguesiaByNome(String nomeFreguesia) {
+        Freguesia freg = null;
+        for (int i = 0; i < this.freguesias.size(); i++) {
+            freg = this.freguesias.get(i);
+            if (freg.getNomeFreguesia() == nomeFreguesia) {
+                Freguesia copia = new Freguesia(freg);
+                return copia;
+            }
+        }
+        return null;
+    }
+    
+    public void removeFreguesia(String nomeFreguesia) throws ElementoNaoExistenteException {
+        Freguesia freg = null;
+        for (int i = 0; i < this.freguesias.size(); i++) {
+            freg = this.freguesias.get(i);
+            if (freg.getNomeFreguesia() == nomeFreguesia) {
+                    this.pessoas.remove(i);
+                    return;
+            }
+        }
+        throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe essa Freguesia");
+    }
+
+    public void updateFreguesias(String nomeFreguesia, Freguesia f) throws ElementoNaoExistenteException {
+        Freguesia freg = null;
+        boolean updated = false;
+        for (int i = 0; i < this.freguesias.size() && !updated; i++) {
+            freg = this.freguesias.get(i);
+            if (freg.getNomeFreguesia() == nomeFreguesia) {
+                freg = f;
+                updated = true;
+            }
+        }
+        if (updated == false) {
+            throw new ElementoNaoExistenteException(nomeFreguesia + ": Não Existe essa Freguesia");
+        }
+    }
+
 }
