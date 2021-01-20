@@ -5,6 +5,7 @@
  */
 package com.company.service;
 
+import com.company.dto.FreguesiaDTO;
 import com.company.dto.ListaFreguesiaDTO;
 import com.company.dto.Mapper;
 import com.company.exception.ConversaoException;
@@ -23,49 +24,49 @@ public class FreguesiasService {
         ListaFreguesiaDTO listaFreguesiaDTO = null;
         Autarquia autarquia = Dados.carregarDados();
         ArrayList<Freguesia> freguesias = autarquia.getFreguesias();
-        listaFreguesiaDTO = Mapper.listPessoa2PessoaDTO(pessoas);
-        return listaPessoaDTO;
+        listaFreguesiaDTO = Mapper.listfreguesia2freguesiaDTO(freguesias);
+        return listaFreguesiaDTO;
     }
 
-    public static PessoaDTO getPessoa(long nif) {
+    public static FreguesiaDTO getFreguesia(String nomeFreguesia) {
         Autarquia autarquia = Dados.carregarDados();
-        Pessoa pessoa = autarquia.getPessoa(nif);
-        if (pessoa == null) {
+        Freguesia freguesia = autarquia.getFreguesia(nomeFreguesia);
+        if (freguesia == null) {
             return null;
         }
-        PessoaDTO pessoaDTO = Mapper.pessoa2PessoaDTO(pessoa);
-        if (pessoaDTO != null) {
-            return pessoaDTO;
+        FreguesiaDTO freguesiaDTO = Mapper.freguesia2FreguesiaDTO(freguesia);
+        if (freguesiaDTO != null) {
+            return freguesiaDTO;
         } else {
             throw new ConversaoException("PessoaDTO");
         }
     }
 
-    public static void addPessoa(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = Mapper.pessoaDTO2Pessoa(pessoaDTO);
-        if (pessoa != null) {
+    public static void addFreguesia(FreguesiaDTO freguesiaDTO) {
+        Freguesia freguesia = Mapper.freguesiaDTO2Freguesia(freguesiaDTO);
+        if (freguesia != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.addPessoa(pessoa);
+            autarquia.addFreguesia(freguesia);
             Dados.guardarDados(autarquia);
         } else {
-            throw new ConversaoException("PessoaDTO");
+            throw new ConversaoException("FreguesiaDTO");
         }
     }
 
-    public static void updatePessoa(long nif, PessoaDTO pessoaDTO) {
-        Pessoa pessoa = Mapper.pessoaDTO2Pessoa(pessoaDTO);
-        if (pessoa != null) {
+    public static void updateFreguesia(String nomeFreguesia, FreguesiaDTO freguesiaDTO) {
+        Freguesia freguesia = Mapper.freguesiaDTO2Freguesia(freguesiaDTO);
+        if (freguesia != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.updatePessoa(nif, pessoa);
+            autarquia.updateFreguesias(nomeFreguesia, freguesia);
             Dados.guardarDados(autarquia);
         } else {
-            throw new ConversaoException("PessoaDTO");
+            throw new ConversaoException("FreguesiaDTO");
         }
     }
 
-    public static void removePessoa(long nif) {
+    public static void removeFreguesia(String nomeFreguesia) {
         Autarquia autarquia = Dados.carregarDados();
-        autarquia.removePessoa(nif);
+        autarquia.removeFreguesia(nomeFreguesia);
         Dados.guardarDados(autarquia);
     }
 }
