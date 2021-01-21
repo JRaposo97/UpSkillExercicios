@@ -6,10 +6,10 @@
 package com.company.service;
 
 import com.company.dto.ListaTerrenoDTO;
-import com.company.dto.ListaTerrenoDTOSemID;
 import com.company.dto.Mapper;
 import com.company.dto.TerrenoDTO;
 import com.company.exception.ConversaoException;
+import com.company.exception.NomeTerrenoException;
 import com.company.model.Autarquia;
 import com.company.model.Terreno;
 import com.company.repo.Dados;
@@ -35,7 +35,7 @@ public class TerrenosService {
         }
     }
 
-    public static void addTerreno(TerrenoDTO terrenoDTO, String nomeFreguesia) {
+    public static void addTerreno(TerrenoDTO terrenoDTO, String nomeFreguesia) throws NomeTerrenoException {
         Terreno terreno = Mapper.terrenoDTO2Terreno(terrenoDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
@@ -60,7 +60,7 @@ public class TerrenosService {
         Dados.guardarDados(autarquia);
     }
 
-    public static void updateTerreno(int id, TerrenoDTO terrenoDTO, String nomeFreguesia) {
+    public static void updateTerreno(int id, TerrenoDTO terrenoDTO, String nomeFreguesia) throws NomeTerrenoException {
         Terreno terreno = Mapper.terrenoDTO2Terreno(terrenoDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();

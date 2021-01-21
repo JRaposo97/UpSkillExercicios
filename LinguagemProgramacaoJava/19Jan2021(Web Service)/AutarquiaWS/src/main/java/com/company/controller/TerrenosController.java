@@ -8,7 +8,6 @@ package com.company.controller;
 import com.company.dto.ErroDTO;
 import com.company.dto.ListaPessoaDTO;
 import com.company.dto.ListaTerrenoDTO;
-import com.company.dto.ListaTerrenoDTOSemID;
 import com.company.dto.PessoaDTO;
 import com.company.dto.TerrenoDTO;
 import com.company.service.PessoasService;
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class TerrenosController {
     
-    @RequestMapping(value = "{nomeFreguesia}/terrenos",
+    @RequestMapping(value = "freguesias/{nomeFreguesia}/terrenos",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> getTerrenos(@PathVariable("nomeFreguesia") String nomeFreguesia) {
@@ -46,7 +45,7 @@ public class TerrenosController {
         }
     }
     
-    @RequestMapping(value = "{nomeFreguesia}/terrenos/{id}",
+    @RequestMapping(value = "freguesias/{nomeFreguesia}/terrenos/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> getTerreno(@PathVariable("id") int id, @PathVariable("nomeFreguesia") String nomeFreguesia) {
@@ -62,7 +61,7 @@ public class TerrenosController {
         }
     }
     
-    @RequestMapping(value = "{nomeFreguesia}/terrenos",
+    @RequestMapping(value = "freguesias/{nomeFreguesia}/terrenos",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_XML_VALUE,
             produces = MediaType.APPLICATION_XML_VALUE)
@@ -75,7 +74,7 @@ public class TerrenosController {
         }
     }
     
-    @RequestMapping(value = "{nomeFreguesia}/terrenos/{id}",
+    @RequestMapping(value = "freguesias/{nomeFreguesia}/terrenos/{id}",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_XML_VALUE,
             produces = MediaType.APPLICATION_XML_VALUE)
@@ -89,7 +88,7 @@ public class TerrenosController {
         }
     }
     
-    @RequestMapping(value = "{nomeFreguesia}/terrenos/{id}",
+    @RequestMapping(value = "freguesias/{nomeFreguesia}/terrenos/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Object> removePessoa(@PathVariable("id") int id,@PathVariable("nomeFreguesia") String nomeFreguesia) {

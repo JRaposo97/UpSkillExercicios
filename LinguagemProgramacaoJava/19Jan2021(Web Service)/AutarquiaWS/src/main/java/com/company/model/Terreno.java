@@ -12,27 +12,32 @@ import com.company.exception.NomeTerrenoException;
  * @author joaor
  */
 public class Terreno {
-    
+
     private static int count = 0;
     private int id;
     private String nome;
     private Forma forma;
 
-    
+    public Terreno() {
+    }
+
     public Terreno(String nome, Forma forma) {
         ++id;
         this.nome = nome;
         this.forma = forma;
     }
-    
-    public Terreno(Terreno terreno){
+
+    public Terreno(Terreno terreno) {
         this.nome = terreno.nome;
         this.forma = terreno.forma;
     }
-    
-    
+
     public int getId() {
-      return id;
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -45,7 +50,7 @@ public class Terreno {
     /**
      * @param nome the nome to set
      */
-    public void setNome(String nome) throws NomeTerrenoException{
+    public void setNome(String nome) throws NomeTerrenoException {
         if (nome != null) {
             this.nome = nome;
         } else {
@@ -67,7 +72,7 @@ public class Terreno {
         this.forma = forma;
     }
 
-     @Override
+    @Override
     public boolean equals(Object outroObjeto) {
         if (this == outroObjeto) {
             return true;
@@ -78,5 +83,5 @@ public class Terreno {
         Terreno terreno = (Terreno) outroObjeto;
         return this.id == terreno.getId() && this.forma == terreno.getShape();
     }
-    
+
 }

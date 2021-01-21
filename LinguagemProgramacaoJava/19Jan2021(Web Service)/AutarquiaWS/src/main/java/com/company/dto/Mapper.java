@@ -9,12 +9,19 @@ package com.company.dto;
  *
  * @author joaor
  */
+import com.company.exception.NomeTerrenoException;
+import com.company.model.Circulo;
 import com.company.model.Data;
+import com.company.model.Forma;
 import com.company.model.Freguesia;
 import com.company.model.Funcionario;
 import com.company.model.Pessoa;
+import com.company.model.Rectangulo;
 import com.company.model.Terreno;
+import com.company.model.Triangulo;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Mapper {
 
@@ -32,7 +39,6 @@ public class Mapper {
 
     public static PessoaDTO pessoa2PessoaDTO(Pessoa pessoa) throws NullPointerException {
         PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(), pessoa.getNome(), data2dataDTO(pessoa.getNascimento()));
-
         return pessoaDTO;
     }
 
@@ -142,13 +148,47 @@ public class Mapper {
         TerrenoDTO terrenoDTO = new TerrenoDTO();
         terrenoDTO.setId(terreno.getId());
         terrenoDTO.setNome(terreno.getNome());
-        terrenoDTO.setForma(terreno.getShape().accept(v));
+        terrenoDTO.setForma(forma2formaDTO(terreno.getShape()));
         return terrenoDTO;
     }
 
-    public static Terreno terrenoDTO2Terreno(TerrenoDTO terrenoDTO) {
+    public static Terreno terrenoDTO2Terreno(TerrenoDTO terrenoDTO) throws NomeTerrenoException {
         Terreno terreno = null;
-        terreno = new Terreno(terrenoDTO.getId(),terrenoDTO.getNome(),terrenoDTO.getForma());
-        return freguesia;
+        Forma forma = formaDTO2forma(terrenoDTO.getForma());
+        terreno = new Terreno();
+        try {
+            terreno.setId(terrenoDTO.getId());
+            terreno.setNome(terrenoDTO.getNome());
+            terreno.setShape(forma);
+        } catch (NullPointerException e) {
+            //nothing
+        }
+        return terreno;
+    }
+
+    public static FormaDTOTransformer forma2formaDTO(Forma forma) throws NullPointerException {
+        FormaDTOTransformer formaDTOTransformer = null;
+        if (forma.getClass().getName().equalsIgnoreCase("Circulo")) {
+            CirculoDTO circuloDTO = new FormaDTOTransformer().visit(new Circulo());
+        } else if (forma.getClass().getName().equalsIgnoreCase("Rectangulo")) {
+            RetanguloDTO retanguloDTO = new FormaDTOTransformer().visit(new Rectangulo());
+        } else {
+          TrianguloDTO trianguloDTO = new FormaDTOTransformer().visit(new Triangulo());
+          formaDTOTransformer = trianguloDTO;
+        }
+
+        return formaDTOTransformer;
+    }
+
+    public static Forma formaDTO2forma(FormaDTOTransformer formaDTOTransformer) throws NullPointerException {
+        Forma forma = null;
+        if (formaDTOTransformer.toString().equalsIgnoreCase("Circulo")) {
+            forma = new Circulo();
+        } else if (formaDTOTransformer.toString().equalsIgnoreCase("Rectangulo")) {
+            forma = new Rectangulo();
+        } else {
+            forma = new Triangulo();
+        }
+        return forma;
     }
 }

@@ -16,6 +16,10 @@ public class Rectangulo extends Forma {
 
     private Double altura;
     private Double cumprimento;
+    
+    public Rectangulo(){
+        
+    }
 
     public Rectangulo(Double altura, Double cumprimento) throws AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
         setAltura(altura);

@@ -19,6 +19,10 @@ public class Circulo extends Forma implements Serializable{
     }
 
     private double raio;
+    
+    public Circulo() {
+        
+    }
 
     public Circulo(Double raio) {
         setRaio(raio);

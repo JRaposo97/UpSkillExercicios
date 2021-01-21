@@ -21,6 +21,10 @@ public class Triangulo extends Forma {
     private Double base;
     private Double altura;
 
+    public Triangulo() {
+
+    }
+    
     public Triangulo(Double base, Double altura) throws BaseNegativeOrNull, AlturaNegativeOrNullException {
         setBase(base);
         setAltura(altura);
