@@ -12,11 +12,7 @@ import com.company.exception.BaseNegativeOrNull;
  *
  * @author joaor
  */
-public class Triangulo extends Forma {
-    
-    public <T> T accept(FormaVisitor<T> v) {
-        return v.visit(this);
-    }
+public class Triangulo extends Terreno {
 
     private Double base;
     private Double altura;
@@ -25,7 +21,8 @@ public class Triangulo extends Forma {
 
     }
     
-    public Triangulo(Double base, Double altura) throws BaseNegativeOrNull, AlturaNegativeOrNullException {
+    public Triangulo(String nome,Double base, Double altura) throws BaseNegativeOrNull, AlturaNegativeOrNullException {
+        super(nome);
         setBase(base);
         setAltura(altura);
     }

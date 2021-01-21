@@ -19,16 +19,16 @@ public class ListaTerrenoDTO {
 
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "terrenos")
-    private ArrayList<TerrenoDTO> terrenos;
+    private ArrayList<Object> terrenos;
 
     public ListaTerrenoDTO() {
     }
 
-    public ArrayList<TerrenoDTO> getTerrenos() {
+    public ArrayList<Object> getTerrenos() {
         return terrenos;
     }
 
-    public void setTerrenos(ArrayList<TerrenoDTO> terrenos) {
+    public void setTerrenos(ArrayList<Object> terrenos) {
         this.terrenos = terrenos;
     }
 }

@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-@JsonPropertyOrder({"base", "altura"})
-@JacksonXmlRootElement(localName = "triangulo")
+@JsonPropertyOrder({"nome", "base", "altura"})
+@JacksonXmlRootElement(localName = "triangular")
 public class TrianguloDTO {
 
+    @JacksonXmlProperty(localName = "nome")
+    private String nome;
     @JacksonXmlProperty(localName = "base")
     private Double base;
     @JacksonXmlProperty(localName = "altura")
@@ -22,12 +24,14 @@ public class TrianguloDTO {
     public TrianguloDTO() {
     }
 
-    public TrianguloDTO(Double base, Double altura) {
+    public TrianguloDTO(String nome, Double base, Double altura) {
+        this.nome = nome;
         this.base = base;
         this.altura = altura;
     }
 
     TrianguloDTO(Triangulo t) {
+        this.nome = t.getNome();
         this.base = t.getBase();
         this.altura = t.getAltura();
     }
@@ -58,5 +62,19 @@ public class TrianguloDTO {
      */
     public void setAltura(Double altura) {
         this.altura = altura;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

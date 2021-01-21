@@ -11,25 +11,23 @@ import com.company.exception.NomeTerrenoException;
  *
  * @author joaor
  */
-public class Terreno {
+public abstract class Terreno {
 
     private static int count = 0;
     private int id;
     private String nome;
-    private Forma forma;
 
     public Terreno() {
     }
 
-    public Terreno(String nome, Forma forma) {
+    public Terreno(String nome) {
         ++id;
         this.nome = nome;
-        this.forma = forma;
     }
 
     public Terreno(Terreno terreno) {
+        ++id;
         this.nome = terreno.nome;
-        this.forma = terreno.forma;
     }
 
     public int getId() {
@@ -58,19 +56,6 @@ public class Terreno {
         }
     }
 
-    /**
-     * @return the shape
-     */
-    public Forma getShape() {
-        return forma;
-    }
-
-    /**
-     * @param shape the shape to set
-     */
-    public void setShape(Forma forma) {
-        this.forma = forma;
-    }
 
     @Override
     public boolean equals(Object outroObjeto) {
@@ -81,7 +66,9 @@ public class Terreno {
             return false;
         }
         Terreno terreno = (Terreno) outroObjeto;
-        return this.id == terreno.getId() && this.forma == terreno.getShape();
+        return this.id == terreno.getId() && this.nome == terreno.getNome();
     }
+    
+     public abstract double calcularAreaTerreno();
 
 }

@@ -30,7 +30,7 @@ public class FreguesiasService {
 
     public static FreguesiaDTO getFreguesia(String nomeFreguesia) {
         Autarquia autarquia = Dados.carregarDados();
-        Freguesia freguesia = autarquia.getFreguesia(nomeFreguesia);
+        Freguesia freguesia = autarquia.getFreguesiaByNome(nomeFreguesia);
         if (freguesia == null) {
             return null;
         }

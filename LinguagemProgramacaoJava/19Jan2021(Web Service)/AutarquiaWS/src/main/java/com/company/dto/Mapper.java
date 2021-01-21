@@ -9,10 +9,12 @@ package com.company.dto;
  *
  * @author joaor
  */
+import com.company.exception.AlturaNegativeOrNullException;
+import com.company.exception.BaseNegativeOrNull;
+import com.company.exception.CumpRectanguloNegativeOrNullException;
 import com.company.exception.NomeTerrenoException;
 import com.company.model.Circulo;
 import com.company.model.Data;
-import com.company.model.Forma;
 import com.company.model.Freguesia;
 import com.company.model.Funcionario;
 import com.company.model.Pessoa;
@@ -20,11 +22,10 @@ import com.company.model.Rectangulo;
 import com.company.model.Terreno;
 import com.company.model.Triangulo;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Mapper {
-
+    
+        
     public static DataDTO data2dataDTO(Data data) throws NullPointerException {
         DataDTO dataDTO = new DataDTO(data.getDia(), data.getMes(), data.getAno());
 
@@ -37,11 +38,45 @@ public class Mapper {
         return data;
     }
 
+
+    public static CirculoDTO circular2CircularDTO(Circulo circulo) throws NullPointerException {
+        CirculoDTO circuloDTO = new CirculoDTO(circulo);
+        return circuloDTO;
+    }
+
+    public static Circulo circularDTO2Circular(CirculoDTO circuloDTO) throws NullPointerException {
+        Circulo circulo = null;
+        circulo = new Circulo(circuloDTO.getNome(), circuloDTO.getRaio());
+        return circulo;
+    }
+    //RetanguloDTO
+    public static RetanguloDTO retangulo2RetanguloDTO(Rectangulo rectangulo) throws NullPointerException {
+        RetanguloDTO retanguloDTO = new RetanguloDTO(rectangulo);
+        return retanguloDTO;
+    }
+
+    public static Rectangulo retanguloDTO2Retangulo(RetanguloDTO retanguloDTO) throws NullPointerException, AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
+        Rectangulo rectangulo = null;
+        rectangulo = new Rectangulo(retanguloDTO.getNome(),retanguloDTO.getaltura(), retanguloDTO.getCumprimento());
+        return rectangulo;
+    }
+    //TriangularDTO
+    public static TrianguloDTO triangulo2TrianguloDTO(Triangulo t) throws NullPointerException {
+        TrianguloDTO triDTO = new TrianguloDTO(t);
+        return triDTO;
+    }
+
+    public static Triangulo trianguloDTO2Triangulo(TrianguloDTO triDTO) throws NullPointerException, BaseNegativeOrNull, AlturaNegativeOrNullException {
+        Triangulo triangulo = null;
+        triangulo = new Triangulo(triDTO.getNome(),triDTO.getBase(),triDTO.getAltura());
+        return triangulo;
+    }
+
     public static PessoaDTO pessoa2PessoaDTO(Pessoa pessoa) throws NullPointerException {
         PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(), pessoa.getNome(), data2dataDTO(pessoa.getNascimento()));
         return pessoaDTO;
     }
-
+    //Pessoa
     public static Pessoa pessoaDTO2Pessoa(PessoaDTO pessoaDTO) throws NullPointerException {
         Pessoa pessoa = null;
         Data data = dataDTO2data(pessoaDTO.getNascimento());
@@ -129,14 +164,22 @@ public class Mapper {
         return listaFreguesiaDTO;
     }
 
-    public static ListaTerrenoDTO listterreno2terrenoDTO(ArrayList<Terreno> terrenos) {
-        ArrayList<TerrenoDTO> terrenosDTO = new ArrayList<>();
+    public static ListaTerrenoDTO listTerreno2TerrenoDTO(ArrayList<Terreno> terrenos) throws NullPointerException {
+        ArrayList<Object> terrenosDTO = new ArrayList<>();
         for (Terreno terreno : terrenos) {
             try {
-                TerrenoDTO terrenoDTO = terreno2TerrenoDTO(terreno);
-                terrenosDTO.add(terrenoDTO);
+                if (terreno instanceof Triangulo) {
+                    TrianguloDTO terrenoDTO = triangulo2TrianguloDTO((Triangulo) terreno);
+                    terrenosDTO.add(terrenoDTO);
+                } else if (terreno instanceof Circulo) {
+                    CirculoDTO terrenoDTO = circular2CircularDTO((Circulo) terreno);
+                    terrenosDTO.add(terrenoDTO);
+                } else if (terreno instanceof Rectangulo) {
+                    RetanguloDTO terrenoDTO = retangulo2RetanguloDTO((Rectangulo) terreno);
+                    terrenosDTO.add(terrenoDTO);
+                }
             } catch (NullPointerException e) {
-//does nothing. Actually, nothing is added to arraylist
+                //nada é adicionado
             }
         }
         ListaTerrenoDTO listaTerrenoDTO = new ListaTerrenoDTO();
@@ -144,51 +187,4 @@ public class Mapper {
         return listaTerrenoDTO;
     }
 
-    public static TerrenoDTO terreno2TerrenoDTO(Terreno terreno) {
-        TerrenoDTO terrenoDTO = new TerrenoDTO();
-        terrenoDTO.setId(terreno.getId());
-        terrenoDTO.setNome(terreno.getNome());
-        terrenoDTO.setForma(forma2formaDTO(terreno.getShape()));
-        return terrenoDTO;
-    }
-
-    public static Terreno terrenoDTO2Terreno(TerrenoDTO terrenoDTO) throws NomeTerrenoException {
-        Terreno terreno = null;
-        Forma forma = formaDTO2forma(terrenoDTO.getForma());
-        terreno = new Terreno();
-        try {
-            terreno.setId(terrenoDTO.getId());
-            terreno.setNome(terrenoDTO.getNome());
-            terreno.setShape(forma);
-        } catch (NullPointerException e) {
-            //nothing
-        }
-        return terreno;
-    }
-
-    public static FormaDTOTransformer forma2formaDTO(Forma forma) throws NullPointerException {
-        FormaDTOTransformer formaDTOTransformer = null;
-        if (forma.getClass().getName().equalsIgnoreCase("Circulo")) {
-            CirculoDTO circuloDTO = new FormaDTOTransformer().visit(new Circulo());
-        } else if (forma.getClass().getName().equalsIgnoreCase("Rectangulo")) {
-            RetanguloDTO retanguloDTO = new FormaDTOTransformer().visit(new Rectangulo());
-        } else {
-          TrianguloDTO trianguloDTO = new FormaDTOTransformer().visit(new Triangulo());
-          formaDTOTransformer = trianguloDTO;
-        }
-
-        return formaDTOTransformer;
-    }
-
-    public static Forma formaDTO2forma(FormaDTOTransformer formaDTOTransformer) throws NullPointerException {
-        Forma forma = null;
-        if (formaDTOTransformer.toString().equalsIgnoreCase("Circulo")) {
-            forma = new Circulo();
-        } else if (formaDTOTransformer.toString().equalsIgnoreCase("Rectangulo")) {
-            forma = new Rectangulo();
-        } else {
-            forma = new Triangulo();
-        }
-        return forma;
-    }
 }

@@ -5,13 +5,21 @@
  */
 package com.company.service;
 
+import com.company.dto.CirculoDTO;
 import com.company.dto.ListaTerrenoDTO;
 import com.company.dto.Mapper;
-import com.company.dto.TerrenoDTO;
+import com.company.dto.RetanguloDTO;
+import com.company.dto.TrianguloDTO;
+import com.company.exception.AlturaNegativeOrNullException;
+import com.company.exception.BaseNegativeOrNull;
 import com.company.exception.ConversaoException;
-import com.company.exception.NomeTerrenoException;
+import com.company.exception.CumpRectanguloNegativeOrNullException;
 import com.company.model.Autarquia;
+import com.company.model.Circulo;
+import com.company.model.Freguesia;
+import com.company.model.Rectangulo;
 import com.company.model.Terreno;
+import com.company.model.Triangulo;
 import com.company.repo.Dados;
 import java.util.ArrayList;
 
@@ -21,55 +29,111 @@ import java.util.ArrayList;
  */
 public class TerrenosService {
 
-    public static TerrenoDTO getTerreno(int id, String nomeFreguesia) {
+    public static Object getTerreno(int id, String nomeFreguesia) {
         Autarquia autarquia = Dados.carregarDados();
-        Terreno terreno = autarquia.getFreguesia(nomeFreguesia).getTerreno(id);
+        Terreno terreno = autarquia.getTerreno(id, nomeFreguesia);
         if (terreno == null) {
             return null;
         }
-        TerrenoDTO terrenoDTO = Mapper.terreno2TerrenoDTO(terreno);
-        if (terrenoDTO != null) {
-            return terrenoDTO;
+        if (terreno instanceof Triangulo) {
+            return Mapper.triangulo2TrianguloDTO((Triangulo) terreno);
+        } else if (terreno instanceof Rectangulo) {
+            return Mapper.retangulo2RetanguloDTO((Rectangulo) terreno);
+        } else if (terreno instanceof Circulo) {
+            return Mapper.circular2CircularDTO((Circulo) terreno);
         } else {
-            throw new ConversaoException("TerrenoDTO");
+            throw new ConversaoException("TerrenoCircularDTO");
         }
     }
 
-    public static void addTerreno(TerrenoDTO terrenoDTO, String nomeFreguesia) throws NomeTerrenoException {
-        Terreno terreno = Mapper.terrenoDTO2Terreno(terrenoDTO);
-        if (terreno != null) {
-            Autarquia autarquia = Dados.carregarDados();
-            autarquia.getFreguesia(nomeFreguesia).addTerreno(terreno);
-            Dados.guardarDados(autarquia);
-        } else {
-            throw new ConversaoException("PessoaDTO");
-        }
-    }
-
-    public static ListaTerrenoDTO getTerrenos(String nomeFreguesia) {
+    public static ListaTerrenoDTO getAllTerrenos() {
         ListaTerrenoDTO listaTerrenoDTO = null;
         Autarquia autarquia = Dados.carregarDados();
-        ArrayList<Terreno> terrenos = autarquia.getAllTerrenos(autarquia.getFreguesia(nomeFreguesia).getTerrenos());
-        listaTerrenoDTO = Mapper.listterreno2terrenoDTO(terrenos);
+        ArrayList<Terreno> terrenos = autarquia.getAllTerrenos();
+        listaTerrenoDTO = Mapper.listTerreno2TerrenoDTO(terrenos);
+        return listaTerrenoDTO;
+    }
+
+
+    public static ListaTerrenoDTO getTerrenosByFreguesiaID(String nomeFreguesia) {
+        ListaTerrenoDTO listaTerrenoDTO = null;
+        Autarquia autarquia = Dados.carregarDados();
+        ArrayList<Terreno> terrenos = autarquia.getTerrenosByFreguesia(nomeFreguesia);
+        listaTerrenoDTO = Mapper.listTerreno2TerrenoDTO(terrenos);
         return listaTerrenoDTO;
     }
 
     public static void removeTerreno(int id, String nomeFreguesia) {
         Autarquia autarquia = Dados.carregarDados();
-        autarquia.getFreguesia(nomeFreguesia).removeTerreno(id);
+        autarquia.removeTerreno(id, nomeFreguesia);
         Dados.guardarDados(autarquia);
     }
 
-    public static void updateTerreno(int id, TerrenoDTO terrenoDTO, String nomeFreguesia) throws NomeTerrenoException {
-        Terreno terreno = Mapper.terrenoDTO2Terreno(terrenoDTO);
+    public static void updateTerrenoCircular(String nome, int numID, CirculoDTO terrenoCircDTO) {
+        Terreno terreno = Mapper.circularDTO2Circular(terrenoCircDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.getFreguesia(nomeFreguesia).addTerreno(terreno);
+            autarquia.updateTerreno(nome,terreno,numID);
             Dados.guardarDados(autarquia);
         } else {
-            throw new ConversaoException("TerrenoDTO");
+            throw new ConversaoException("TerrenoCircularDTO");
         }
     }
 
+    public static void updateTerrenoRectangular(String nome, int numID, RetanguloDTO terrenoRectDTO) throws NullPointerException, AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
+        Terreno terreno = Mapper.retanguloDTO2Retangulo(terrenoRectDTO);
+        if (terreno != null) {
+            Autarquia autarquia = Dados.carregarDados();
+            autarquia.updateTerreno(nome,terreno,numID);
+            Dados.guardarDados(autarquia);
+        } else {
+            throw new ConversaoException("TerrenoRectangularDTO");
+        }
+    }
+
+    public static void updateTerrenoTriangular(String nome, int numID, TrianguloDTO terrenoTriDTO) throws NullPointerException, BaseNegativeOrNull, AlturaNegativeOrNullException {
+        Terreno terreno = Mapper.trianguloDTO2Triangulo(terrenoTriDTO);
+        if (terreno != null) {
+            Autarquia autarquia = Dados.carregarDados();
+            autarquia.updateTerreno(nome,terreno,numID);
+            Dados.guardarDados(autarquia);
+        } else {
+            throw new ConversaoException("TerrenoTriangularDTO");
+        }
+    }
+
+
+    public static void addTerrenoCircular(String nome, CirculoDTO terrenoCircDTO) {
+        Terreno terreno = Mapper.circularDTO2Circular(terrenoCircDTO);
+        if (terreno != null) {
+            Autarquia autarquia = Dados.carregarDados();
+            autarquia.addTerreno(nome,terreno);
+            Dados.guardarDados(autarquia);
+        } else {
+            throw new ConversaoException("TerrenoCircularDTO");
+        }
+    }
+
+    public static void addTerrenoRectangular(String nome, RetanguloDTO terrenoRectDTO) throws NullPointerException, AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
+        Terreno terreno = Mapper.retanguloDTO2Retangulo(terrenoRectDTO);
+        if (terreno != null) {
+            Autarquia autarquia = Dados.carregarDados();
+            autarquia.addTerreno(nome,terreno);
+            Dados.guardarDados(autarquia);
+        } else {
+            throw new ConversaoException("TerrenoRectangularDTO");
+        }
+    }
+
+    public static void addTerrenoTriangular(String nome, TrianguloDTO terrenoTriDTO) throws NullPointerException, BaseNegativeOrNull, AlturaNegativeOrNullException {
+        Terreno terreno = Mapper.trianguloDTO2Triangulo(terrenoTriDTO);
+        if (terreno != null) {
+            Autarquia autarquia = Dados.carregarDados();
+            autarquia.addTerreno(nome,terreno);
+            Dados.guardarDados(autarquia);
+        } else {
+            throw new ConversaoException("TerrenoTriangularDTO");
+        }
+    }
 
 }

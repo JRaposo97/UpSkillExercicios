@@ -89,7 +89,7 @@ public class Autarquia implements Serializable {
         for (int i = 0; i < this.pessoas.size() && !updated; i++) {
             pessoa = this.pessoas.get(i);
             if (pessoa.getNif() == nif) {
-                this.pessoas.set(i,p);
+                this.pessoas.set(i, p);
                 updated = true;
             }
         }
@@ -204,9 +204,36 @@ public class Autarquia implements Serializable {
     public ArrayList<Freguesia> getFreguesias() {
         return new ArrayList<Freguesia>(freguesias);
     }
-    
-    public Freguesia getFreguesia(String nomeFreguesia) {
-        return getFreguesiaByNome(nomeFreguesia);
+
+    public void addTerreno(String nomeFreguesia, Terreno terreno) {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+
+        Terreno t = f.getTerreno(terreno.getId());
+        if (t == null) {
+            f.getTerrenos().add(terreno);
+        }
+    }
+
+    public void updateTerreno(String nomeFreguesia, Terreno terreno, int idTerreno) {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+        Terreno terr = null;
+        boolean updated = false;
+        for (int i = 0; i < f.getTerrenos().size() && !updated; i++) {
+            terr = f.getTerrenos().get(i);
+            if (terr.getId() == idTerreno) {
+                f.getTerrenos().set(i, terreno);
+                updated = true;
+            }
+        }
+        if (updated == false) {
+            throw new ElementoNaoExistenteException(nomeFreguesia + ": Não Existe esse Terreno");
+        }
+    }
+
+    public ArrayList<Terreno> getTerrenosByFreguesia(String nomeFreguesia) {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+
+        return new ArrayList<Terreno>(f.getTerrenos());
     }
 
     public void addFreguesia(Freguesia freguesia) throws NomeFreguesiaDuplicadoException {
@@ -218,25 +245,24 @@ public class Autarquia implements Serializable {
         }
     }
 
-    private Freguesia getFreguesiaByNome(String nomeFreguesia) {
+    public Freguesia getFreguesiaByNome(String nomeFreguesia) {
         Freguesia freg = null;
         for (int i = 0; i < this.freguesias.size(); i++) {
             freg = this.freguesias.get(i);
             if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
-                Freguesia copia = new Freguesia(freg);
-                return copia;
+                return freg;
             }
         }
         return null;
     }
-    
+
     public void removeFreguesia(String nomeFreguesia) throws ElementoNaoExistenteException {
         Freguesia freg = null;
         for (int i = 0; i < this.freguesias.size(); i++) {
             freg = this.freguesias.get(i);
             if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
-                    this.pessoas.remove(i);
-                    return;
+                this.pessoas.remove(i);
+                return;
             }
         }
         throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe essa Freguesia");
@@ -257,9 +283,24 @@ public class Autarquia implements Serializable {
         }
     }
 
-    public ArrayList<Terreno> getAllTerrenos(ArrayList<Terreno> terrenos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Terreno> getAllTerrenos() {
+        ArrayList<Terreno> listaTodosTerrenos = new ArrayList<>();
+        for (Freguesia f : getFreguesias()) {
+            listaTodosTerrenos.addAll(f.getTerrenos());
+        }
+        return listaTodosTerrenos;
     }
 
+    public Terreno getTerreno(int id, String nomeFreguesia) {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+        return f.getTerreno(id);
+    }
+
+    public void removeTerreno(int idTerreno, String nomeFreguesia) throws ElementoNaoExistenteException {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+        Terreno terr = null;
+        f.removeTerreno(idTerreno);
+        throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe esse Terreno");
+    }
 
 }

@@ -9,16 +9,17 @@ package com.company.dto;
  *
  * @author joaor
  */
-
 import com.company.model.Rectangulo;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-@JsonPropertyOrder({"altura", "cumprimento"})
-@JacksonXmlRootElement(localName = "rectangulo")
+@JsonPropertyOrder({"nome", "altura", "cumprimento"})
+@JacksonXmlRootElement(localName = "rectangular")
 public class RetanguloDTO {
-    
+
+    @JacksonXmlProperty(localName = "nome")
+    private String nome;
     @JacksonXmlProperty(localName = "altura")
     private Double altura;
     @JacksonXmlProperty(localName = "cumprimento")
@@ -27,12 +28,14 @@ public class RetanguloDTO {
     public RetanguloDTO() {
     }
 
-    public RetanguloDTO(Double altura, Double cumprimento) {
+    public RetanguloDTO(String nome,Double altura, Double cumprimento) {
+        this.nome = nome;
         this.altura = altura;
         this.cumprimento = cumprimento;
     }
 
     public RetanguloDTO(Rectangulo r) {
+        this.nome = r.getNome();
         this.altura = r.getAltura();
         this.cumprimento = r.getCumprimento();
     }
@@ -51,6 +54,20 @@ public class RetanguloDTO {
 
     public void setMes(Double cumprimento) {
         this.cumprimento = cumprimento;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }

@@ -12,11 +12,7 @@ import java.io.Serializable;
  *
  * @author joaor
  */
-public class Circulo extends Forma implements Serializable{
-
-    public <T> T accept(FormaVisitor<T> v) {
-        return v.visit(this);
-    }
+public class Circulo extends Terreno implements Serializable{
 
     private double raio;
     
@@ -24,9 +20,11 @@ public class Circulo extends Forma implements Serializable{
         
     }
 
-    public Circulo(Double raio) {
+    public Circulo(String name,Double raio) {
+        super(name);
         setRaio(raio);
     }
+   
 
     /**
      * @return the raio

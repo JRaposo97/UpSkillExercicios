@@ -12,7 +12,7 @@ import com.company.exception.CumpRectanguloNegativeOrNullException;
  *
  * @author joaor
  */
-public class Rectangulo extends Forma {
+public class Rectangulo extends Terreno {
 
     private Double altura;
     private Double cumprimento;
@@ -21,14 +21,12 @@ public class Rectangulo extends Forma {
         
     }
 
-    public Rectangulo(Double altura, Double cumprimento) throws AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
+    public Rectangulo(String nome,Double altura, Double cumprimento) throws AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
+        super(nome);
         setAltura(altura);
         setCumprimento(cumprimento);
     }
-    
-    public <T> T accept(FormaVisitor<T> v) {
-        return v.visit(this);
-    }
+
 
     /**
      * @return the altura

@@ -70,8 +70,8 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
     }
 
     //Freguesias
-    public ArrayList<Terreno> getTerrenos() {
-        return new ArrayList<Terreno>(terrenos);
+    ArrayList<Terreno> getTerrenos() {
+        return terrenos;
     }
     
     public Terreno getTerreno(int id) {
@@ -91,8 +91,7 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
         for (int i = 0; i < this.terrenos.size(); i++) {
             terr = this.terrenos.get(i);
             if (terr.getId() == id) {
-                Terreno copia = new Terreno(terr);
-                return copia;
+                return terr;
             }
         }
         return null;
@@ -110,21 +109,5 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
         }
         throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe esse Terreno");
     }
-
-    public void updateTerreno(int idTerreno, Terreno t) throws ElementoNaoExistenteException {
-        Terreno terr = null;
-        boolean updated = false;
-        for (int i = 0; i < this.terrenos.size() && !updated; i++) {
-            terr = this.terrenos.get(i);
-            if (terr.getId() == idTerreno) {
-                this.terrenos.set(i, t);
-                updated = true;
-            }
-        }
-        if (updated == false) {
-            throw new ElementoNaoExistenteException(nomeFreguesia + ": Não Existe esse Terreno");
-        }
-    }
-
     
 }
