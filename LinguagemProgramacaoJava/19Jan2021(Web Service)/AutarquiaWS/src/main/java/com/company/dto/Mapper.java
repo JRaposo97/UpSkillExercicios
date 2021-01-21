@@ -124,7 +124,7 @@ public class Mapper {
     }
 
     public static ListaTerrenoDTO listterreno2terrenoDTO(ArrayList<Terreno> terrenos) {
-       ArrayList<TerrenoDTO> terrenosDTO = new ArrayList<>();
+        ArrayList<TerrenoDTO> terrenosDTO = new ArrayList<>();
         for (Terreno terreno : terrenos) {
             try {
                 TerrenoDTO terrenoDTO = terreno2TerrenoDTO(terreno);
@@ -147,6 +147,8 @@ public class Mapper {
     }
 
     public static Terreno terrenoDTO2Terreno(TerrenoDTO terrenoDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Terreno terreno = null;
+        terreno = new Terreno(terrenoDTO.getId(),terrenoDTO.getNome(),terrenoDTO.getForma());
+        return freguesia;
     }
 }
