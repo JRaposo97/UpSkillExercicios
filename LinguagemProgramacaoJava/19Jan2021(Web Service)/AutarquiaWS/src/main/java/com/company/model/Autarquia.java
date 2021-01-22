@@ -261,7 +261,7 @@ public class Autarquia implements Serializable {
         for (int i = 0; i < this.freguesias.size(); i++) {
             freg = this.freguesias.get(i);
             if (freg.getNomeFreguesia().equalsIgnoreCase(nomeFreguesia)) {
-                this.pessoas.remove(i);
+                this.freguesias.remove(i);
                 return;
             }
         }

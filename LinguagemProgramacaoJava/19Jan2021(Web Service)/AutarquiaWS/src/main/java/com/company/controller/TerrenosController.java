@@ -7,12 +7,9 @@ package com.company.controller;
 
 import com.company.dto.CirculoDTO;
 import com.company.dto.ErroDTO;
-import com.company.dto.ListaPessoaDTO;
 import com.company.dto.ListaTerrenoDTO;
-import com.company.dto.PessoaDTO;
 import com.company.dto.RetanguloDTO;
 import com.company.dto.TrianguloDTO;
-import com.company.service.PessoasService;
 import com.company.service.TerrenosService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
