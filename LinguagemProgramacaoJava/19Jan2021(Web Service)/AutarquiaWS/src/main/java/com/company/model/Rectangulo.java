@@ -7,12 +7,13 @@ package com.company.model;
 
 import com.company.exception.AlturaNegativeOrNullException;
 import com.company.exception.CumpRectanguloNegativeOrNullException;
+import java.io.Serializable;
 
 /**
  *
  * @author joaor
  */
-public class Rectangulo extends Terreno {
+public class Rectangulo extends Terreno implements Serializable{
 
     private Double altura;
     private Double cumprimento;

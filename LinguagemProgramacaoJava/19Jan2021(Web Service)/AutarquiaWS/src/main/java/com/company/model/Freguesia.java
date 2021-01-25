@@ -16,18 +16,17 @@ import java.util.ArrayList;
  *
  * @author joaor
  */
-public class Freguesia implements Serializable, Comparable<Freguesia>{
+public class Freguesia implements Serializable, Comparable<Freguesia> {
 
     private String nomeFreguesia;
     private ArrayList<Terreno> terrenos;
-
 
     public Freguesia(String nomeFreguesia) {
         setNomeFreguesia(nomeFreguesia);
         this.terrenos = new ArrayList<>();
     }
-    
-    public Freguesia(Freguesia f){
+
+    public Freguesia(Freguesia f) {
         setNomeFreguesia(f.nomeFreguesia);
     }
 
@@ -42,13 +41,13 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
      * @param nomeFreguesia the nomeFreguesia to set
      */
     public void setNomeFreguesia(String nomeFreguesia) {
-         if (eNomeFreguesiaValida(nomeFreguesia)) {
+        if (eNomeFreguesiaValida(nomeFreguesia)) {
             this.nomeFreguesia = nomeFreguesia;
         } else {
             throw new NomeFreguesiaInvalidoException(nomeFreguesia + ": Nome Freguesia invalido");
         }
     }
-    
+
     private boolean eNomeFreguesiaValida(String nomeFreguesia) {
         if (nomeFreguesia == null) {
             return false;
@@ -66,14 +65,14 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
 
     @Override
     public int compareTo(Freguesia o) {
-       return nomeFreguesia.compareToIgnoreCase(o.getNomeFreguesia());
+        return nomeFreguesia.compareToIgnoreCase(o.getNomeFreguesia());
     }
 
     //Freguesias
     ArrayList<Terreno> getTerrenos() {
         return terrenos;
     }
-    
+
     public Terreno getTerreno(int id) {
         return getTerrenoByID(id);
     }
@@ -84,10 +83,9 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
             this.terrenos.add(terreno);
         }
     }
-    
-    
+
     private Terreno getTerrenoByID(int id) {
-       Terreno terr = null;
+        Terreno terr = null;
         for (int i = 0; i < this.terrenos.size(); i++) {
             terr = this.terrenos.get(i);
             if (terr.getId() == id) {
@@ -97,17 +95,35 @@ public class Freguesia implements Serializable, Comparable<Freguesia>{
         return null;
     }
 
-    
     public void removeTerreno(int idTerreno) throws ElementoNaoExistenteException {
         Terreno terr = null;
         for (int i = 0; i < this.terrenos.size(); i++) {
             terr = this.terrenos.get(i);
             if (terr.getId() == idTerreno) {
-                    this.terrenos.remove(i);
-                    return;
+                this.terrenos.remove(i);
+                return;
             }
         }
         throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe esse Terreno");
     }
-    
+
+    public ArrayList<Pessoa> getProprietarios(int idTerreno) throws Exception {
+        Terreno t = getTerrenoByID(idTerreno);
+        if (t != null) {
+            return t.getProprietarios();
+        }else{
+            throw new Exception("Terreno não existe");
+        }
+
+    }
+
+    public boolean removeProprietarioTerreno(int idTerreno, Pessoa p) throws Exception {
+        Terreno t = getTerrenoByID(idTerreno);
+        if(t==null){
+            throw new ElementoNaoExistenteException("Terreno não Existe");
+        }else{
+           return t.removeProprietario(p);
+        }
+    }
+
 }

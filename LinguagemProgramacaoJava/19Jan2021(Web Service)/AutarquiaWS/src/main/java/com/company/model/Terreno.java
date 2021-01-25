@@ -6,27 +6,31 @@
 package com.company.model;
 
 import com.company.exception.NomeTerrenoException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author joaor
  */
-public abstract class Terreno {
+public abstract class Terreno implements Serializable {
 
     private static int count = 0;
     private int id;
     private String nome;
+    private List<Pessoa> proprietarios;
 
     public Terreno() {
     }
 
     public Terreno(String nome) {
-        ++id;
+        id = ++count;
         this.nome = nome;
     }
 
     public Terreno(Terreno terreno) {
-        ++id;
+        id = ++count;
         this.nome = terreno.nome;
     }
 
@@ -56,6 +60,21 @@ public abstract class Terreno {
         }
     }
 
+    /**
+     * @return the proprietarios
+     */
+    public ArrayList<Pessoa> getProprietarios() {
+        Pessoa pessoa;
+        ArrayList<Pessoa> lista = new ArrayList<>();
+        for (int i = 0; i < this.proprietarios.size(); i++) {
+            pessoa = this.proprietarios.get(i);
+            if (!(pessoa instanceof Funcionario)) {
+                Pessoa copia = new Pessoa(pessoa);
+                lista.add(copia);
+            }
+        }
+        return lista;
+    }
 
     @Override
     public boolean equals(Object outroObjeto) {
@@ -68,7 +87,23 @@ public abstract class Terreno {
         Terreno terreno = (Terreno) outroObjeto;
         return this.id == terreno.getId() && this.nome == terreno.getNome();
     }
-    
-     public abstract double calcularAreaTerreno();
+
+    public abstract double calcularAreaTerreno();
+
+    public boolean addProprietario(Pessoa p) {
+        if (proprietarios.contains(p)) {
+            throw new RuntimeException("O " + p.getNome() + "já é proprietario deste terreno");
+        } else {
+            return getProprietarios().add(p);
+        }
+    }
+
+    public boolean removeProprietario(Pessoa p) throws Exception {
+        if(proprietarios.contains(p)){
+            return proprietarios.remove(p);
+        }else{
+            throw new Exception(p.getNome()+"Não é proprietario deste terreno");
+        }
+    }
 
 }

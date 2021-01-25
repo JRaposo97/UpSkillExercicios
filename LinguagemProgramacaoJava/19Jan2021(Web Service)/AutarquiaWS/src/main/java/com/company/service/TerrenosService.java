@@ -6,6 +6,7 @@
 package com.company.service;
 
 import com.company.dto.CirculoDTO;
+import com.company.dto.ListaProprietarioDTO;
 import com.company.dto.ListaTerrenoDTO;
 import com.company.dto.Mapper;
 import com.company.dto.RetanguloDTO;
@@ -16,7 +17,7 @@ import com.company.exception.ConversaoException;
 import com.company.exception.CumpRectanguloNegativeOrNullException;
 import com.company.model.Autarquia;
 import com.company.model.Circulo;
-import com.company.model.Freguesia;
+import com.company.model.Pessoa;
 import com.company.model.Rectangulo;
 import com.company.model.Terreno;
 import com.company.model.Triangulo;
@@ -52,6 +53,14 @@ public class TerrenosService {
         ArrayList<Terreno> terrenos = autarquia.getAllTerrenos();
         listaTerrenoDTO = Mapper.listTerreno2TerrenoDTO(terrenos);
         return listaTerrenoDTO;
+    }
+    
+     public static ListaProprietarioDTO getAllProprietarios(String nomeFreguesia, int idTerreno) {
+        ListaProprietarioDTO listaProprietariosDTO = null;
+        Autarquia autarquia = Dados.carregarDados();
+        ArrayList<Pessoa> proprietarios = autarquia.getProprietarios(nomeFreguesia,idTerreno);
+        listaProprietariosDTO = Mapper.listProprietarios2ProprietarioDTO(proprietarios);
+        return listaProprietariosDTO;
     }
 
 

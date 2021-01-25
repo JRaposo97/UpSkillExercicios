@@ -12,7 +12,6 @@ package com.company.dto;
 import com.company.exception.AlturaNegativeOrNullException;
 import com.company.exception.BaseNegativeOrNull;
 import com.company.exception.CumpRectanguloNegativeOrNullException;
-import com.company.exception.NomeTerrenoException;
 import com.company.model.Circulo;
 import com.company.model.Data;
 import com.company.model.Freguesia;
@@ -24,8 +23,7 @@ import com.company.model.Triangulo;
 import java.util.ArrayList;
 
 public class Mapper {
-    
-        
+
     public static DataDTO data2dataDTO(Data data) throws NullPointerException {
         DataDTO dataDTO = new DataDTO(data.getDia(), data.getMes(), data.getAno());
 
@@ -38,7 +36,6 @@ public class Mapper {
         return data;
     }
 
-
     public static CirculoDTO circular2CircularDTO(Circulo circulo) throws NullPointerException {
         CirculoDTO circuloDTO = new CirculoDTO(circulo);
         return circuloDTO;
@@ -49,6 +46,7 @@ public class Mapper {
         circulo = new Circulo(circuloDTO.getNome(), circuloDTO.getRaio());
         return circulo;
     }
+
     //RetanguloDTO
     public static RetanguloDTO retangulo2RetanguloDTO(Rectangulo rectangulo) throws NullPointerException {
         RetanguloDTO retanguloDTO = new RetanguloDTO(rectangulo);
@@ -57,9 +55,10 @@ public class Mapper {
 
     public static Rectangulo retanguloDTO2Retangulo(RetanguloDTO retanguloDTO) throws NullPointerException, AlturaNegativeOrNullException, CumpRectanguloNegativeOrNullException {
         Rectangulo rectangulo = null;
-        rectangulo = new Rectangulo(retanguloDTO.getNome(),retanguloDTO.getaltura(), retanguloDTO.getCumprimento());
+        rectangulo = new Rectangulo(retanguloDTO.getNome(), retanguloDTO.getaltura(), retanguloDTO.getCumprimento());
         return rectangulo;
     }
+
     //TriangularDTO
     public static TrianguloDTO triangulo2TrianguloDTO(Triangulo t) throws NullPointerException {
         TrianguloDTO triDTO = new TrianguloDTO(t);
@@ -68,7 +67,7 @@ public class Mapper {
 
     public static Triangulo trianguloDTO2Triangulo(TrianguloDTO triDTO) throws NullPointerException, BaseNegativeOrNull, AlturaNegativeOrNullException {
         Triangulo triangulo = null;
-        triangulo = new Triangulo(triDTO.getNome(),triDTO.getBase(),triDTO.getAltura());
+        triangulo = new Triangulo(triDTO.getNome(), triDTO.getBase(), triDTO.getAltura());
         return triangulo;
     }
 
@@ -76,6 +75,7 @@ public class Mapper {
         PessoaDTO pessoaDTO = new PessoaDTO(pessoa.getNif(), pessoa.getNome(), data2dataDTO(pessoa.getNascimento()));
         return pessoaDTO;
     }
+
     //Pessoa
     public static Pessoa pessoaDTO2Pessoa(PessoaDTO pessoaDTO) throws NullPointerException {
         Pessoa pessoa = null;
@@ -185,6 +185,21 @@ public class Mapper {
         ListaTerrenoDTO listaTerrenoDTO = new ListaTerrenoDTO();
         listaTerrenoDTO.setTerrenos(terrenosDTO);
         return listaTerrenoDTO;
+    }
+
+    public static ListaProprietarioDTO listProprietarios2ProprietarioDTO(ArrayList<Pessoa> proprietarios) throws NullPointerException {
+        ArrayList<PessoaDTO> pessoasDTO = new ArrayList<>();
+        for (Pessoa proprietario : proprietarios) {
+            try {
+                PessoaDTO pessoaDTO = pessoa2PessoaDTO(proprietario);
+                pessoasDTO.add(pessoaDTO);
+            } catch (NullPointerException e) {
+//does nothing. Actually, nothing is added to arraylist
+            }
+        }
+        ListaProprietarioDTO listaProprietarioDTO = new ListaProprietarioDTO();
+        listaProprietarioDTO.setProprietarios(proprietarios);
+        return listaProprietarioDTO;
     }
 
 }

@@ -7,12 +7,13 @@ package com.company.model;
 
 import com.company.exception.AlturaNegativeOrNullException;
 import com.company.exception.BaseNegativeOrNull;
+import java.io.Serializable;
 
 /**
  *
  * @author joaor
  */
-public class Triangulo extends Terreno {
+public class Triangulo extends Terreno implements Serializable{
 
     private Double base;
     private Double altura;
@@ -43,7 +44,7 @@ public class Triangulo extends Terreno {
      * @param base the base to set
      */
     public void setBase(Double base) throws BaseNegativeOrNull {
-        if (altura == null || altura < 0) {
+        if (base == null || base < 0) {
             throw new BaseNegativeOrNull("Base tem de ser um numero positivo.");
         } else {
             this.base = base;

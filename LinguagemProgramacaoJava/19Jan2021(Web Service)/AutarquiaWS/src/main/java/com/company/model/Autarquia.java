@@ -233,7 +233,7 @@ public class Autarquia implements Serializable {
     public ArrayList<Terreno> getTerrenosByFreguesia(String nomeFreguesia) {
         Freguesia f = getFreguesiaByNome(nomeFreguesia);
 
-        return new ArrayList<Terreno>(f.getTerrenos());
+        return f.getTerrenos();
     }
 
     public void addFreguesia(Freguesia freguesia) throws NomeFreguesiaDuplicadoException {
@@ -303,4 +303,18 @@ public class Autarquia implements Serializable {
         throw new ElementoNaoExistenteException(nomeFreguesia + ": Não existe esse Terreno");
     }
 
+    public ArrayList<Pessoa> getProprietarios(String nomeFreguesia, int idTerreno) throws Exception {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+
+        return f.getProprietarios(idTerreno);
+    }
+
+    public boolean removeProprietarioTerreno(int id, String nomeFreguesia, Pessoa p) throws Exception {
+        Freguesia f = getFreguesiaByNome(nomeFreguesia);
+        if (f == null) {
+            throw new ElementoNaoExistenteException("Freguesia não existe");
+        } else {
+            return f.removeProprietarioTerreno(id, p);
+        }
+    }
 }
