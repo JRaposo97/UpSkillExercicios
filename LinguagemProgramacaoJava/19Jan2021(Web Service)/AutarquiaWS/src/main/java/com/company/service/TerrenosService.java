@@ -54,15 +54,6 @@ public class TerrenosService {
         listaTerrenoDTO = Mapper.listTerreno2TerrenoDTO(terrenos);
         return listaTerrenoDTO;
     }
-    
-     public static ListaProprietarioDTO getAllProprietarios(String nomeFreguesia, int idTerreno) {
-        ListaProprietarioDTO listaProprietariosDTO = null;
-        Autarquia autarquia = Dados.carregarDados();
-        ArrayList<Pessoa> proprietarios = autarquia.getProprietarios(nomeFreguesia,idTerreno);
-        listaProprietariosDTO = Mapper.listProprietarios2ProprietarioDTO(proprietarios);
-        return listaProprietariosDTO;
-    }
-
 
     public static ListaTerrenoDTO getTerrenosByFreguesiaID(String nomeFreguesia) {
         ListaTerrenoDTO listaTerrenoDTO = null;
@@ -82,7 +73,7 @@ public class TerrenosService {
         Terreno terreno = Mapper.circularDTO2Circular(terrenoCircDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.updateTerreno(nome,terreno,numID);
+            autarquia.updateTerreno(nome, terreno, numID);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoCircularDTO");
@@ -93,7 +84,7 @@ public class TerrenosService {
         Terreno terreno = Mapper.retanguloDTO2Retangulo(terrenoRectDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.updateTerreno(nome,terreno,numID);
+            autarquia.updateTerreno(nome, terreno, numID);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoRectangularDTO");
@@ -104,19 +95,18 @@ public class TerrenosService {
         Terreno terreno = Mapper.trianguloDTO2Triangulo(terrenoTriDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.updateTerreno(nome,terreno,numID);
+            autarquia.updateTerreno(nome, terreno, numID);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoTriangularDTO");
         }
     }
 
-
     public static void addTerrenoCircular(String nome, CirculoDTO terrenoCircDTO) {
         Terreno terreno = Mapper.circularDTO2Circular(terrenoCircDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.addTerreno(nome,terreno);
+            autarquia.addTerreno(nome, terreno);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoCircularDTO");
@@ -127,7 +117,7 @@ public class TerrenosService {
         Terreno terreno = Mapper.retanguloDTO2Retangulo(terrenoRectDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.addTerreno(nome,terreno);
+            autarquia.addTerreno(nome, terreno);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoRectangularDTO");
@@ -138,11 +128,24 @@ public class TerrenosService {
         Terreno terreno = Mapper.trianguloDTO2Triangulo(terrenoTriDTO);
         if (terreno != null) {
             Autarquia autarquia = Dados.carregarDados();
-            autarquia.addTerreno(nome,terreno);
+            autarquia.addTerreno(nome, terreno);
             Dados.guardarDados(autarquia);
         } else {
             throw new ConversaoException("TerrenoTriangularDTO");
         }
     }
 
+    public static ListaProprietarioDTO getAllProprietarios(String nomeFreguesia, int idTerreno) throws Exception {
+        ListaProprietarioDTO listaProprietariosDTO = null;
+        Autarquia autarquia = Dados.carregarDados();
+        ArrayList<Pessoa> proprietarios = autarquia.getProprietarios(nomeFreguesia, idTerreno);
+        listaProprietariosDTO = Mapper.listProprietarios2ProprietarioDTO(proprietarios);
+        return listaProprietariosDTO;
+    }
+
+    public static void removeProprietario(int id, String nomeFreguesia,Pessoa p) {
+        Autarquia autarquia = Dados.carregarDados();
+        autarquia.removeProprietario(id, nomeFreguesia,p);
+        Dados.guardarDados(autarquia);
+    }
 }
